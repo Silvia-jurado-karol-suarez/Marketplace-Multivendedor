@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="productos")
-public class Producto {
+public class Producto implements Cloneable {
 
 	@Id
     private String id;
@@ -86,5 +86,21 @@ public class Producto {
 
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
+    }
+    
+    @Override
+    public Producto clone() {
+
+        try {
+
+            return (Producto) super.clone();
+
+        } catch (CloneNotSupportedException e) {
+
+            throw new RuntimeException(
+                    "No se pudo clonar el producto",
+                    e
+            );
+        }
     }
 }
