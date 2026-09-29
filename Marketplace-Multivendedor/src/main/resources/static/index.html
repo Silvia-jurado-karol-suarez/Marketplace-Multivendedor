@@ -2,1669 +2,317 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Marketplace Multivendedor</title>
 
-    <style>
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: #222;
-            color: white;
-            padding: 25px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        nav {
-            margin-top: 20px;
-        }
-
-        nav button {
-            margin: 5px;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: white;
-            color: #222;
-        }
-
-        nav button:hover {
-            background-color: #ddd;
-        }
-
-        .contenedor {
-            width: 90%;
-            max-width: 1100px;
-            margin: 30px auto;
-        }
-
-        .seccion {
-            background-color: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-        }
-
-        .oculto {
-            display: none;
-        }
-
-        .productos {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .producto {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .producto h3 {
-            margin-top: 0;
-        }
-
-        button {
-            background-color: #333;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
-
-        select,
-        input {
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .resultado {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #eee;
-            border-radius: 8px;
-        }
-
-        .patron {
-            background-color: #e8e8e8;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .pedido-producto {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .mensaje {
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="/css/estilos.css">
 </head>
-
 
 <body>
 
+<header class="header-principal">
 
-<header>
+    <div class="logo">
+        <span class="logo-icon">M</span>
+        <span>MarketPlace</span>
+    </div>
 
-    <h1>Marketplace Multivendedor</h1>
+    <nav class="nav-principal">
 
-    <p>
-        Plataforma para consultar productos, realizar pedidos
-        y gestionar pagos y envíos.
-    </p>
-
-
-    <nav>
-
-        <button onclick="mostrarSeccion('inicio')">
+        <a href="/index.html" class="activo">
             Inicio
-        </button>
+        </a>
 
-        <button onclick="mostrarSeccion('productos')">
-            Productos
-        </button>
+        <a href="/login.html">
+            Iniciar sesión
+        </a>
 
-        <button onclick="mostrarSeccion('pedido')">
-            Mi pedido
-        </button>
-
-        <button onclick="mostrarSeccion('pagos')">
-            Pagos
-        </button>
-
-        <button onclick="mostrarSeccion('envios')">
-            Envíos
-        </button>
-
-        <button onclick="mostrarSeccion('vendedor')">
-            Mis productos
-        </button>
-
-        <button onclick="mostrarSeccion('configuracion')">
-            Configuración
-        </button>
+        <a href="/registro.html" class="nav-registro">
+            Registrarse
+        </a>
 
     </nav>
 
 </header>
 
 
-<div class="contenedor">
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-contenido">
+
+            <div class="hero-texto">
+
+                <span class="etiqueta">
+                    MARKETPLACE MULTIVENDEDOR
+                </span>
+
+                <h1>
+                    Compra y vende
+                    <span>en un solo lugar</span>
+                </h1>
+
+                <p>
+                    Una plataforma donde diferentes vendedores pueden
+                    ofrecer sus productos y los clientes pueden comprar,
+                    realizar pedidos y gestionar sus pagos y envíos.
+                </p>
+
+                <div class="hero-botones">
+
+                    <a href="/login.html" class="btn btn-principal">
+                        Iniciar sesión
+                    </a>
+
+                    <a href="/registro.html" class="btn btn-secundario">
+                        Crear cuenta
+                    </a>
+
+                </div>
+
+            </div>
 
 
-    <!-- ================================================= -->
-    <!-- INICIO -->
-    <!-- ================================================= -->
+            <div class="hero-card">
 
-    <section id="inicio" class="seccion">
+                <div class="card-header">
 
-        <h2>
-            Bienvenido al Marketplace
-        </h2>
+                    <span>Marketplace</span>
 
-        <p>
-            Diferentes vendedores pueden ofrecer sus productos
-            dentro de una misma plataforma.
-        </p>
+                    <span class="estado">
+                        ● Activo
+                    </span>
 
-        <p>
-            Los clientes pueden consultar productos,
-            crear pedidos, seleccionar métodos de pago
-            y elegir tipos de envío.
-        </p>
+                </div>
 
-        <button onclick="mostrarSeccion('productos')">
-            Ver catálogo
-        </button>
+                <div class="estadistica-principal">
 
-    </section>
+                    <span>Productos disponibles</span>
 
+                    <strong>+100</strong>
 
+                </div>
 
-    <!-- ================================================= -->
-    <!-- PRODUCTOS -->
-    <!-- ================================================= -->
+                <div class="mini-estadisticas">
 
-    <section id="productos"
-             class="seccion oculto">
+                    <div>
+                        <strong>+20</strong>
+                        <span>Vendedores</span>
+                    </div>
 
-        <h2>
-            Catálogo de productos
-        </h2>
+                    <div>
+                        <strong>+500</strong>
+                        <span>Pedidos</span>
+                    </div>
 
-        <p>
-            Selecciona un producto y agrega la cantidad que deseas.
-        </p>
+                    <div>
+                        <strong>100%</strong>
+                        <span>Online</span>
+                    </div>
 
+                </div>
 
-        <div id="catalogo"
-             class="productos">
-
-        </div>
-
-
-        <div id="mensajeProducto"
-             class="mensaje">
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- BUILDER -->
-    <!-- ================================================= -->
-
-    <section id="pedido"
-             class="seccion oculto">
-
-        <h2>
-            Mi pedido
-        </h2>
-
-
-        <div class="patron">
-
-            <strong>
-                Patrón Builder
-            </strong>
-
-            <p>
-                Construcción del pedido a partir de los productos,
-                cantidades, total, método de pago y tipo de envío.
-            </p>
-
-        </div>
-
-
-        <div id="listaPedido">
-
-            <p>
-                No hay productos en el pedido.
-            </p>
-
-        </div>
-
-
-        <hr>
-
-
-        <h3>
-            Total:
-            $<span id="totalPedido">0</span>
-        </h3>
-
-
-        <p>
-            Método de pago:
-            <strong id="pagoPedido">
-                No seleccionado
-            </strong>
-        </p>
-
-
-        <p>
-            Tipo de envío:
-            <strong id="envioPedido">
-                No seleccionado
-            </strong>
-        </p>
-
-
-        <button onclick="mostrarSeccion('pagos')">
-            Seleccionar pago
-        </button>
-
-
-        <button onclick="mostrarSeccion('envios')">
-            Seleccionar envío
-        </button>
-
-
-        <br><br>
-
-
-        <button onclick="crearPedido()">
-            CREAR PEDIDO
-        </button>
-
-
-        <div id="resultadoBuilder"
-             class="resultado">
-
-            <h3>
-                Resultado del Builder
-            </h3>
-
-            <p>
-                El pedido todavía no ha sido construido.
-            </p>
+            </div>
 
         </div>
 
     </section>
 
 
+    <!-- CARACTERÍSTICAS -->
 
-    <!-- ================================================= -->
-    <!-- FACTORY METHOD -->
-    <!-- ================================================= -->
+    <section class="caracteristicas">
 
-    <section id="pagos"
-             class="seccion oculto">
+        <div class="seccion-titulo">
 
-        <h2>
-            Métodos de pago
-        </h2>
+            <span>PLATAFORMA</span>
 
-
-        <div class="patron">
-
-            <strong>
-                Patrón Factory Method
-            </strong>
+            <h2>
+                Todo lo necesario para comprar
+            </h2>
 
             <p>
-                El cliente selecciona un método de pago
-                y el sistema identifica el tipo de pago que
-                debe utilizar.
+                El Marketplace integra las principales funciones
+                necesarias para gestionar productos, pedidos,
+                pagos y envíos.
             </p>
 
         </div>
 
 
-        <label>
-            Método de pago:
-        </label>
+        <div class="tarjetas">
 
+            <article class="tarjeta">
 
-        <br>
-
-
-        <select id="metodoPago"
-                onchange="actualizarPago()">
-
-            <option value="">
-                Seleccionar método
-            </option>
-
-            <option value="Tarjeta">
-                Tarjeta
-            </option>
-
-            <option value="PSE">
-                PSE
-            </option>
-
-            <option value="Nequi">
-                Nequi
-            </option>
-
-        </select>
-
-
-        <br><br>
-
-
-        <label>
-            Monto del pedido:
-        </label>
-
-
-        <br>
-
-
-        <input
-            type="number"
-            id="montoPago"
-            min="0"
-            placeholder="Ingrese el monto"
-            oninput="actualizarPago()"
-        >
-
-
-        <br><br>
-
-
-        <button onclick="procesarPago()">
-            PROCESAR PAGO
-        </button>
-
-
-        <div id="resultadoPago"
-             class="resultado">
-
-            <h3>
-                Resultado
-            </h3>
-
-            <p>
-                Selecciona un método de pago.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- ABSTRACT FACTORY -->
-    <!-- ================================================= -->
-
-    <section id="envios"
-             class="seccion oculto">
-
-        <h2>
-            Gestión de envíos
-        </h2>
-
-
-        <div class="patron">
-
-            <strong>
-                Patrón Abstract Factory
-            </strong>
-
-            <p>
-                El cliente selecciona un tipo de envío.
-                Cada tipo genera su costo y su guía.
-            </p>
-
-        </div>
-
-
-        <label>
-            Tipo de envío:
-        </label>
-
-
-        <br>
-
-
-        <select id="tipoEnvio"
-                onchange="actualizarEnvio()">
-
-            <option value="">
-                Seleccionar tipo
-            </option>
-
-            <option value="Nacional">
-                Nacional
-            </option>
-
-            <option value="Internacional">
-                Internacional
-            </option>
-
-        </select>
-
-
-        <br><br>
-
-
-        <label>
-            Peso del pedido en kg:
-        </label>
-
-
-        <br>
-
-
-        <input
-            type="number"
-            id="pesoEnvio"
-            min="0"
-            step="0.1"
-            placeholder="Ingrese el peso"
-            oninput="actualizarEnvio()"
-        >
-
-
-        <br><br>
-
-
-        <label>
-            Código del pedido:
-        </label>
-
-
-        <br>
-
-
-        <input
-            type="text"
-            id="codigoPedido"
-            placeholder="Ejemplo: P001"
-            oninput="actualizarEnvio()"
-        >
-
-
-        <br><br>
-
-
-        <button onclick="realizarEnvio()">
-            CALCULAR ENVÍO
-        </button>
-
-
-        <div id="resultadoEnvio"
-             class="resultado">
-
-            <h3>
-                Resultado
-            </h3>
-
-            <p>
-                Selecciona el tipo de envío.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- PROTOTYPE -->
-    <!-- ================================================= -->
-
-    <section id="vendedor"
-             class="seccion oculto">
-
-        <h2>
-            Mis productos
-        </h2>
-
-
-        <div class="patron">
-
-            <strong>
-                Patrón Prototype
-            </strong>
-
-            <p>
-                Permite crear una copia de un producto
-                existente para utilizarla como base.
-            </p>
-
-        </div>
-
-
-        <div id="productoOriginal"
-             class="producto">
-
-        </div>
-
-
-        <br>
-
-
-        <button onclick="duplicarProducto()">
-            DUPLICAR PRODUCTO
-        </button>
-
-
-        <div id="resultadoPrototype"
-             class="resultado">
-
-            <h3>
-                Resultado
-            </h3>
-
-            <p>
-                Selecciona "Duplicar producto".
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- SINGLETON -->
-    <!-- ================================================= -->
-
-    <section id="configuracion"
-             class="seccion oculto">
-
-        <h2>
-            Configuración del Marketplace
-        </h2>
-
-
-        <div class="patron">
-
-            <strong>
-                Patrón Singleton
-            </strong>
-
-            <p>
-                La configuración general del Marketplace
-                se maneja desde una única instancia.
-            </p>
-
-        </div>
-
-
-        <button onclick="consultarConfiguracion()">
-            CONSULTAR CONFIGURACIÓN
-        </button>
-
-
-        <div id="resultadoConfiguracion"
-             class="resultado">
-
-            <h3>
-                Configuración
-            </h3>
-
-            <p>
-                Presiona el botón para consultar
-                la configuración.
-            </p>
-
-        </div>
-
-    </section>
-
-
-</div>
-
-
-
-<script>
-
-
-    // =====================================================
-    // DATOS DEL MARKETPLACE
-    // =====================================================
-
-    const productos = [
-
-        {
-            id: 1,
-            nombre: "Laptop",
-            vendedor: "Tecnología ABC",
-            precio: 2000000,
-            stock: 5,
-            categoria: "Tecnología"
-        },
-
-        {
-            id: 2,
-            nombre: "Celular",
-            vendedor: "Mundo Digital",
-            precio: 1200000,
-            stock: 10,
-            categoria: "Tecnología"
-        },
-
-        {
-            id: 3,
-            nombre: "Audífonos",
-            vendedor: "Audio Store",
-            precio: 150000,
-            stock: 20,
-            categoria: "Audio"
-        },
-
-        {
-            id: 4,
-            nombre: "Teclado",
-            vendedor: "Tecnología ABC",
-            precio: 180000,
-            stock: 8,
-            categoria: "Accesorios"
-        }
-
-    ];
-
-
-    // Pedido actual
-
-    let pedido = [];
-
-
-    // Producto para Prototype
-
-    let productoOriginal = {
-
-        id: 10,
-
-        nombre: "Laptop empresarial",
-
-        vendedor: "Tecnología ABC",
-
-        precio: 2000000,
-
-        categoria: "Tecnología",
-
-        stock: 5
-
-    };
-
-
-    // =====================================================
-    // MOSTRAR SECCIONES
-    // =====================================================
-
-    function mostrarSeccion(seccion) {
-
-        const secciones = [
-
-            "inicio",
-            "productos",
-            "pedido",
-            "pagos",
-            "envios",
-            "vendedor",
-            "configuracion"
-
-        ];
-
-
-        secciones.forEach(function(nombre) {
-
-            document
-                .getElementById(nombre)
-                .classList.add("oculto");
-
-        });
-
-
-        document
-            .getElementById(seccion)
-            .classList.remove("oculto");
-
-
-        if (seccion === "productos") {
-
-            mostrarCatalogo();
-
-        }
-
-
-        if (seccion === "pedido") {
-
-            actualizarPedido();
-
-        }
-
-
-        if (seccion === "vendedor") {
-
-            mostrarProductoOriginal();
-
-        }
-
-    }
-
-
-
-    // =====================================================
-    // MOSTRAR CATÁLOGO
-    // =====================================================
-
-    function mostrarCatalogo() {
-
-        const catalogo =
-            document.getElementById("catalogo");
-
-
-        catalogo.innerHTML = "";
-
-
-        productos.forEach(function(producto) {
-
-            const tarjeta =
-                document.createElement("div");
-
-
-            tarjeta.className = "producto";
-
-
-            tarjeta.innerHTML = `
-
-                <h3>${producto.nombre}</h3>
-
-                <p>
-                    Vendedor: ${producto.vendedor}
-                </p>
-
-                <p>
-                    Categoría: ${producto.categoria}
-                </p>
-
-                <p>
-                    Precio: $${formatearPrecio(producto.precio)}
-                </p>
-
-                <p>
-                    Stock disponible: ${producto.stock}
-                </p>
-
-                <label>
-                    Cantidad:
-                </label>
-
-                <br>
-
-                <input
-                    type="number"
-                    id="cantidad-${producto.id}"
-                    value="1"
-                    min="1"
-                    max="${producto.stock}"
-                >
-
-                <br><br>
-
-                <button
-                    onclick="agregarProducto(${producto.id})">
-
-                    Agregar al pedido
-
-                </button>
-
-            `;
-
-
-            catalogo.appendChild(tarjeta);
-
-        });
-
-    }
-
-
-
-    // =====================================================
-    // AGREGAR PRODUCTO AL PEDIDO
-    // =====================================================
-
-    function agregarProducto(id) {
-
-        const producto =
-            productos.find(function(item) {
-
-                return item.id === id;
-
-            });
-
-
-        const cantidad =
-            Number(
-                document.getElementById(
-                    "cantidad-" + id
-                ).value
-            );
-
-
-        if (cantidad < 1 ||
-            cantidad > producto.stock) {
-
-            mostrarMensaje(
-                "La cantidad seleccionada no es válida."
-            );
-
-            return;
-
-        }
-
-
-        const productoExistente =
-            pedido.find(function(item) {
-
-                return item.id === id;
-
-            });
-
-
-        if (productoExistente) {
-
-            productoExistente.cantidad += cantidad;
-
-        } else {
-
-            pedido.push({
-
-                id: producto.id,
-
-                nombre: producto.nombre,
-
-                precio: producto.precio,
-
-                cantidad: cantidad
-
-            });
-
-        }
-
-
-        mostrarMensaje(
-            producto.nombre +
-            " fue agregado al pedido."
-        );
-
-
-        actualizarPedido();
-
-
-        mostrarSeccion("pedido");
-
-    }
-
-
-
-    // =====================================================
-    // ACTUALIZAR PEDIDO
-    // =====================================================
-
-    function actualizarPedido() {
-
-        const lista =
-            document.getElementById("listaPedido");
-
-
-        lista.innerHTML = "";
-
-
-        if (pedido.length === 0) {
-
-            lista.innerHTML =
-                "<p>No hay productos en el pedido.</p>";
-
-            document.getElementById(
-                "totalPedido"
-            ).textContent = "0";
-
-            return;
-
-        }
-
-
-        let total = 0;
-
-
-        pedido.forEach(function(producto) {
-
-            const subtotal =
-                producto.precio *
-                producto.cantidad;
-
-
-            total += subtotal;
-
-
-            const elemento =
-                document.createElement("div");
-
-
-            elemento.className =
-                "pedido-producto";
-
-
-            elemento.innerHTML = `
-
-                <p>
-                    <strong>
-                        Producto:
-                    </strong>
-
-                    ${producto.nombre}
-                </p>
-
-                <p>
-                    Cantidad:
-                    ${producto.cantidad}
-                </p>
-
-                <p>
-                    Precio:
-                    $${formatearPrecio(producto.precio)}
-                </p>
-
-                <p>
-                    Subtotal:
-                    $${formatearPrecio(subtotal)}
-                </p>
-
-            `;
-
-
-            lista.appendChild(elemento);
-
-        });
-
-
-        document.getElementById(
-            "totalPedido"
-        ).textContent =
-            formatearPrecio(total);
-
-
-        document.getElementById(
-            "montoPago"
-        ).value = total;
-
-    }
-
-
-
-    // =====================================================
-    // BUILDER
-    // =====================================================
-
-    function crearPedido() {
-
-        if (pedido.length === 0) {
-
-            document.getElementById(
-                "resultadoBuilder"
-            ).innerHTML = `
+                <div class="icono">
+                    🛍️
+                </div>
 
                 <h3>
-                    No se puede crear el pedido
+                    Productos
                 </h3>
 
                 <p>
-                    Primero debes agregar productos.
+                    Consulta productos ofrecidos por diferentes
+                    vendedores desde un único catálogo.
                 </p>
 
-            `;
-
-            return;
-
-        }
+            </article>
 
 
-        const total =
-            calcularTotal();
+            <article class="tarjeta">
 
-
-        const metodo =
-            document.getElementById(
-                "metodoPago"
-            ).value;
-
-
-        const envio =
-            document.getElementById(
-                "tipoEnvio"
-            ).value;
-
-
-        document.getElementById(
-            "pagoPedido"
-        ).textContent =
-            metodo || "No seleccionado";
-
-
-        document.getElementById(
-            "envioPedido"
-        ).textContent =
-            envio || "No seleccionado";
-
-
-        document.getElementById(
-            "resultadoBuilder"
-        ).innerHTML = `
-
-            <h3>
-                PEDIDO CREADO
-            </h3>
-
-            <p>
-                <strong>
-                    Productos:
-                </strong>
-                ${pedido.length}
-            </p>
-
-            <p>
-                <strong>
-                    Cantidad total:
-                </strong>
-                ${calcularCantidadTotal()}
-            </p>
-
-            <p>
-                <strong>
-                    Total:
-                </strong>
-                $${formatearPrecio(total)}
-            </p>
-
-            <p>
-                <strong>
-                    Método de pago:
-                </strong>
-                ${metodo || "No seleccionado"}
-            </p>
-
-            <p>
-                <strong>
-                    Tipo de envío:
-                </strong>
-                ${envio || "No seleccionado"}
-            </p>
-
-            <hr>
-
-            <p>
-                <strong>
-                    Estado:
-                </strong>
-                PENDIENTE
-            </p>
-
-        `;
-
-    }
-
-
-
-    // =====================================================
-    // FACTORY METHOD
-    // =====================================================
-
-    function actualizarPago() {
-
-        const metodo =
-            document.getElementById(
-                "metodoPago"
-            ).value;
-
-
-        document.getElementById(
-            "pagoPedido"
-        ).textContent =
-            metodo || "No seleccionado";
-
-    }
-
-
-
-    function procesarPago() {
-
-        const metodo =
-            document.getElementById(
-                "metodoPago"
-            ).value;
-
-
-        const monto =
-            Number(
-                document.getElementById(
-                    "montoPago"
-                ).value
-            );
-
-
-        if (!metodo) {
-
-            document.getElementById(
-                "resultadoPago"
-            ).innerHTML = `
+                <div class="icono">
+                    📦
+                </div>
 
                 <h3>
-                    Selecciona un método
+                    Pedidos
                 </h3>
 
                 <p>
-                    Debes seleccionar Tarjeta,
-                    PSE o Nequi.
+                    Crea y administra pedidos con los productos
+                    seleccionados.
                 </p>
 
-            `;
-
-            return;
-
-        }
+            </article>
 
 
-        if (monto <= 0) {
+            <article class="tarjeta">
 
-            document.getElementById(
-                "resultadoPago"
-            ).innerHTML = `
+                <div class="icono">
+                    💳
+                </div>
 
                 <h3>
-                    Monto no válido
+                    Pagos
                 </h3>
 
                 <p>
-                    Ingresa un monto mayor que cero.
+                    Selecciona diferentes métodos de pago para
+                    completar tus compras.
                 </p>
 
-            `;
-
-            return;
-
-        }
+            </article>
 
 
-        document.getElementById(
-            "resultadoPago"
-        ).innerHTML = `
+            <article class="tarjeta">
 
-            <h3>
-                PAGO PREPARADO
-            </h3>
-
-            <p>
-                <strong>
-                    Método seleccionado:
-                </strong>
-                ${metodo}
-            </p>
-
-            <p>
-                <strong>
-                    Monto:
-                </strong>
-                $${formatearPrecio(monto)}
-            </p>
-
-            <p>
-                El método seleccionado será
-                creado mediante Factory Method
-                cuando se conecte con el backend.
-            </p>
-
-        `;
-
-
-        document.getElementById(
-            "pagoPedido"
-        ).textContent = metodo;
-
-    }
-
-
-
-    // =====================================================
-    // ABSTRACT FACTORY
-    // =====================================================
-
-    function actualizarEnvio() {
-
-        const tipo =
-            document.getElementById(
-                "tipoEnvio"
-            ).value;
-
-
-        document.getElementById(
-            "envioPedido"
-        ).textContent =
-            tipo || "No seleccionado";
-
-    }
-
-
-
-    function realizarEnvio() {
-
-        const tipo =
-            document.getElementById(
-                "tipoEnvio"
-            ).value;
-
-
-        const peso =
-            Number(
-                document.getElementById(
-                    "pesoEnvio"
-                ).value
-            );
-
-
-        const pedidoId =
-            document.getElementById(
-                "codigoPedido"
-            ).value.trim();
-
-
-        if (!tipo ||
-            peso <= 0 ||
-            !pedidoId) {
-
-            document.getElementById(
-                "resultadoEnvio"
-            ).innerHTML = `
+                <div class="icono">
+                    🚚
+                </div>
 
                 <h3>
-                    Datos incompletos
+                    Envíos
                 </h3>
 
                 <p>
-                    Selecciona el tipo de envío,
-                    ingresa el peso y el código
-                    del pedido.
+                    Selecciona el tipo de envío y consulta
+                    la información correspondiente.
                 </p>
 
-            `;
+            </article>
 
-            return;
+        </div>
 
-        }
-
-
-        let costo;
+    </section>
 
 
-        if (tipo === "Nacional") {
+    <!-- PATRONES -->
 
-            costo =
-                10000 + (peso * 2000);
+    <section class="patrones">
 
-        } else {
+        <div class="seccion-titulo">
 
-            costo =
-                50000 + (peso * 8000);
+            <span>ARQUITECTURA</span>
 
-        }
-
-
-        const guia =
-            "GUIA-" +
-            tipo.toUpperCase() +
-            "-" +
-            pedidoId;
-
-
-        document.getElementById(
-            "resultadoEnvio"
-        ).innerHTML = `
-
-            <h3>
-                RESULTADO
-            </h3>
+            <h2>
+                Patrones de diseño
+            </h2>
 
             <p>
-                <strong>
-                    Tipo de envío:
-                </strong>
-                ${tipo}
+                El proyecto utiliza diferentes patrones para
+                organizar la creación y funcionamiento de sus componentes.
             </p>
+
+        </div>
+
+
+        <div class="patrones-grid">
+
+            <div class="patron-card">
+                <span>01</span>
+                <h3>Singleton</h3>
+                <p>Configuración general del Marketplace.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>02</span>
+                <h3>Factory Method</h3>
+                <p>Creación de diferentes métodos de pago.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>03</span>
+                <h3>Abstract Factory</h3>
+                <p>Creación de familias de elementos de envío.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>04</span>
+                <h3>Builder</h3>
+                <p>Construcción de pedidos.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>05</span>
+                <h3>Prototype</h3>
+                <p>Clonación de productos existentes.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>06</span>
+                <h3>Adapter</h3>
+                <p>Adaptación de servicios externos de pago.</p>
+            </div>
+
+            <div class="patron-card">
+                <span>07</span>
+                <h3>Bridge</h3>
+                <p>Separación entre pedidos y canales de notificación.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-contenido">
+
+        <div>
+            <strong>Marketplace Multivendedor</strong>
 
             <p>
-                <strong>
-                    Peso:
-                </strong>
-                ${peso} kg
+                Plataforma de comercio electrónico.
             </p>
+        </div>
 
-            <p>
-                <strong>
-                    Pedido:
-                </strong>
-                ${pedidoId}
-            </p>
+        <div>
+            <span>Proyecto de Patrones de Software</span>
+        </div>
 
-            <p>
-                <strong>
-                    Guía:
-                </strong>
-                ${guia}
-            </p>
+    </div>
 
-            <p>
-                <strong>
-                    Costo de envío:
-                </strong>
-                $${formatearPrecio(costo)}
-            </p>
-
-        `;
-
-
-        document.getElementById(
-            "envioPedido"
-        ).textContent = tipo;
-
-    }
-
-
-
-    // =====================================================
-    // PROTOTYPE
-    // =====================================================
-
-    function mostrarProductoOriginal() {
-
-        document.getElementById(
-            "productoOriginal"
-        ).innerHTML = `
-
-            <h3>
-                ${productoOriginal.nombre}
-            </h3>
-
-            <p>
-                Vendedor:
-                ${productoOriginal.vendedor}
-            </p>
-
-            <p>
-                Categoría:
-                ${productoOriginal.categoria}
-            </p>
-
-            <p>
-                Precio:
-                $${formatearPrecio(
-                    productoOriginal.precio
-                )}
-            </p>
-
-            <p>
-                Stock:
-                ${productoOriginal.stock}
-            </p>
-
-        `;
-
-    }
-
-
-
-    function duplicarProducto() {
-
-        const productoClonado = {
-
-            ...productoOriginal,
-
-            id:
-                productoOriginal.id +
-                "-" +
-                Date.now(),
-
-            nombre:
-                productoOriginal.nombre +
-                " - Copia"
-
-        };
-
-
-        document.getElementById(
-            "resultadoPrototype"
-        ).innerHTML = `
-
-            <h3>
-                PRODUCTO CLONADO
-            </h3>
-
-            <p>
-                <strong>
-                    Producto original:
-                </strong>
-                ${productoOriginal.nombre}
-            </p>
-
-            <p>
-                <strong>
-                    Producto clonado:
-                </strong>
-                ${productoClonado.nombre}
-            </p>
-
-            <p>
-                <strong>
-                    Precio:
-                </strong>
-                $${formatearPrecio(
-                    productoClonado.precio
-                )}
-            </p>
-
-            <p>
-                <strong>
-                    Categoría:
-                </strong>
-                ${productoClonado.categoria}
-            </p>
-
-            <p>
-                <strong>
-                    Identificador original:
-                </strong>
-                ${productoOriginal.id}
-            </p>
-
-            <p>
-                <strong>
-                    Identificador de la copia:
-                </strong>
-                ${productoClonado.id}
-            </p>
-
-            <p>
-                Son objetos diferentes:
-                <strong>
-                    ${productoOriginal !== productoClonado}
-                </strong>
-            </p>
-
-        `;
-
-    }
-
-
-
-    // =====================================================
-    // SINGLETON
-    // =====================================================
-
-    function consultarConfiguracion() {
-
-        const configuracion = {
-
-            moneda: "COP",
-
-            comision: 10,
-
-            stockMinimo: 5
-
-        };
-
-
-        document.getElementById(
-            "resultadoConfiguracion"
-        ).innerHTML = `
-
-            <h3>
-                CONFIGURACIÓN ACTUAL
-            </h3>
-
-            <p>
-                <strong>
-                    Moneda principal:
-                </strong>
-                ${configuracion.moneda}
-            </p>
-
-            <p>
-                <strong>
-                    Comisión:
-                </strong>
-                ${configuracion.comision}%
-            </p>
-
-            <p>
-                <strong>
-                    Stock mínimo:
-                </strong>
-                ${configuracion.stockMinimo}
-                unidades
-            </p>
-
-            <p>
-                La configuración se encuentra
-                centralizada en una única estructura.
-            </p>
-
-        `;
-
-    }
-
-
-
-    // =====================================================
-    // FUNCIONES AUXILIARES
-    // =====================================================
-
-    function calcularTotal() {
-
-        let total = 0;
-
-
-        pedido.forEach(function(producto) {
-
-            total +=
-                producto.precio *
-                producto.cantidad;
-
-        });
-
-
-        return total;
-
-    }
-
-
-
-    function calcularCantidadTotal() {
-
-        let cantidad = 0;
-
-
-        pedido.forEach(function(producto) {
-
-            cantidad += producto.cantidad;
-
-        });
-
-
-        return cantidad;
-
-    }
-
-
-
-    function formatearPrecio(valor) {
-
-        return Number(valor)
-            .toLocaleString("es-CO");
-
-    }
-
-
-
-    function mostrarMensaje(texto) {
-
-        document.getElementById(
-            "mensajeProducto"
-        ).textContent = texto;
-
-    }
-
-
-</script>
-
+</footer>
 
 </body>
-
 </html>

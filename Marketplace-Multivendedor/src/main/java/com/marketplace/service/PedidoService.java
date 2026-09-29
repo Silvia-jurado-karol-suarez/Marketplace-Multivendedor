@@ -8,27 +8,48 @@ import com.marketplace.builder.PedidoBuilder;
 import com.marketplace.model.Pedido;
 import com.marketplace.model.Producto;
 import com.marketplace.repository.PedidoRepository;
+import com.marketplace.repository.ProductoRepository;
 
 @Service
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
+    private final ProductoRepository productoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository) {
+    public PedidoService(
+            PedidoRepository pedidoRepository,
+            ProductoRepository productoRepository) {
+
         this.pedidoRepository = pedidoRepository;
+        this.productoRepository = productoRepository;
     }
 
     public Pedido crearPedido(
-            List<Producto> productos,
-            double total,
+            List<String> productosIds,
             String estado) {
 
-        Pedido pedido = new PedidoBuilder()
-                .conProductos(productos)
-                .conTotal(total)
-                .conEstado(estado)
-                .build();
+        List<Producto> productos =
+                productoRepository.findAllById(productosIds);
+
+        double total = 0;
+
+        for (Producto producto : productos) {
+
+            total += producto.getPrecio();
+        }
+
+        Pedido pedido =
+                new PedidoBuilder()
+                        .conProductos(productos)
+                        .conTotal(total)
+                        .conEstado(estado)
+                        .build();
 
         return pedidoRepository.save(pedido);
+    }
+
+    public List<Pedido> listarPedidos() {
+
+        return pedidoRepository.findAll();
     }
 }

@@ -11,18 +11,25 @@ public class PedidoBuilder {
     private double total;
     private String estado;
 
-    public PedidoBuilder conProductos(List<Producto> productos) {
+    public PedidoBuilder conProductos(
+            List<Producto> productos) {
+
         this.productos = productos;
+
         return this;
     }
 
     public PedidoBuilder conTotal(double total) {
+
         this.total = total;
+
         return this;
     }
 
     public PedidoBuilder conEstado(String estado) {
+
         this.estado = estado;
+
         return this;
     }
 

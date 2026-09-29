@@ -20,10 +20,14 @@ public class EnvioService {
         GeneradorGuia generador =
                 factory.crearGeneradorGuia();
 
-        double costo = calculador.calcularCosto(peso);
-        String guia = generador.generarGuia(pedidoId);
+        double costo =
+                calculador.calcularCosto(peso);
 
-        return "Guía: " + guia +
-               " | Costo de envío: $" + costo;
+        String guia =
+                generador.generarGuia(pedidoId);
+
+        return "Guía: " + guia
+                + " | Costo de envío: $"
+                + costo;
     }
 }

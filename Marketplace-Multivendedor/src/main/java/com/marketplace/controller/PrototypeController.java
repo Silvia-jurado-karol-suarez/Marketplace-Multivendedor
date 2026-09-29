@@ -1,64 +1,54 @@
 package com.marketplace.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.marketplace.model.Producto;
+import com.marketplace.repository.ProductoRepository;
 
 @RestController
 @RequestMapping("/prototype")
+@CrossOrigin
 public class PrototypeController {
 
-    @GetMapping("/duplicar")
-    public String duplicarProducto() {
+    private final ProductoRepository productoRepository;
+
+    public PrototypeController(
+            ProductoRepository productoRepository) {
+
+        this.productoRepository =
+                productoRepository;
+    }
+
+    @PostMapping("/duplicar/{id}")
+    public ResponseEntity<?> duplicarProducto(
+            @PathVariable String id) {
 
         Producto original =
-                new Producto(
-                        "P001",
-                        "Laptop empresarial",
-                        "Laptop para trabajo",
-                        2000000,
-                        5,
-                        "Tecnología",
-                        null
-                );
+                productoRepository
+                        .findById(id)
+                        .orElse(null);
 
+        if (original == null) {
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
 
         Producto copia =
                 original.clone();
 
+        copia.setId(null);
 
         copia.setNombre(
-                "Laptop empresarial - Copia"
+                original.getNombre()
+                        + " - Copia"
         );
 
+        Producto guardado =
+                productoRepository.save(copia);
 
-        return "PRODUCTO ORIGINAL" +
-               "<br>Nombre: " +
-               original.getNombre() +
-
-               "<br>Precio: $" +
-               String.format(
-                   "%,.0f",
-                   original.getPrecio()
-               ) +
-
-               "<br><br>" +
-
-               "PRODUCTO CLONADO" +
-               "<br>Nombre: " +
-               copia.getNombre() +
-
-               "<br>Precio: $" +
-               String.format(
-                   "%,.0f",
-                   copia.getPrecio()
-               ) +
-
-               "<br><br>" +
-
-               "Son objetos diferentes: " +
-               (original != copia);
+        return ResponseEntity.ok(guardado);
     }
 }

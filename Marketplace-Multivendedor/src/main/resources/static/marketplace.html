@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace - Panel principal</title>
+
+    <link rel="stylesheet"
+          href="/css/estilos.css">
+
+</head>
+
+
+<body class="pagina-marketplace">
+
+
+<header class="header-marketplace">
+
+    <div class="logo">
+
+        <span class="logo-icon">
+            M
+        </span>
+
+        <span>
+            MarketPlace
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#productos">
+            Productos
+        </a>
+
+        <a href="#pedido">
+            Mi pedido
+        </a>
+
+        <a href="#pagos">
+            Pagos
+        </a>
+
+        <a href="#envios">
+            Envíos
+        </a>
+
+        <a href="#patrones">
+            Patrones
+        </a>
+
+        <a href="/login.html"
+           class="cerrar-sesion">
+            Cerrar sesión
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- ========================= -->
+<!-- BIENVENIDA -->
+<!-- ========================= -->
+
+<section class="dashboard-header">
+
+    <div>
+
+        <span class="etiqueta">
+            PANEL PRINCIPAL
+        </span>
+
+        <h1>
+            Bienvenido al Marketplace
+        </h1>
+
+        <p>
+            Administra productos, pedidos, pagos y envíos
+            desde una misma plataforma.
+        </p>
+
+    </div>
+
+
+    <div class="usuario-card">
+
+        <span class="usuario-icon">
+            👤
+        </span>
+
+        <div>
+
+            <strong>
+                Usuario
+            </strong>
+
+            <span>
+                Cliente
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PRODUCTOS -->
+<!-- ========================= -->
+
+<section id="productos"
+         class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                CATÁLOGO
+            </span>
+
+            <h2>
+                Productos disponibles
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div id="listaProductos"
+         class="productos-grid">
+
+        
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PEDIDO -->
+<!-- ========================= -->
+
+<section id="pedido"
+         class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                BUILDER
+            </span>
+
+            <h2>
+                Mi pedido
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="pedido-layout">
+
+
+        <div class="pedido-productos">
+
+            <div id="carrito">
+
+                <div class="estado-vacio">
+
+                    <span>
+                        🛒
+                    </span>
+
+                    <h3>
+                        Tu pedido está vacío
+                    </h3>
+
+                    <p>
+                        Agrega productos desde el catálogo.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <aside class="pedido-resumen">
+
+            <h3>
+                Resumen del pedido
+            </h3>
+
+            <div class="resumen-linea">
+
+                <span>
+                    Productos
+                </span>
+
+                <strong id="cantidadProductos">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="resumen-linea">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="total">
+                    $0
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <label>
+                Método de pago
+            </label>
+
+            <select id="metodoPago">
+
+                <option value="tarjeta">
+                    Tarjeta
+                </option>
+
+                <option value="pse">
+                    PSE
+                </option>
+
+                <option value="nequi">
+                    Nequi
+                </option>
+
+            </select>
+
+
+            <label>
+                Tipo de envío
+            </label>
+
+            <select id="tipoEnvio">
+
+                <option value="nacional">
+                    Nacional
+                </option>
+
+                <option value="internacional">
+                    Internacional
+                </option>
+
+            </select>
+
+
+            <button class="btn btn-principal btn-completo"
+                    onclick="crearPedido()">
+
+                Realizar pedido
+
+            </button>
+
+        </aside>
+
+    </div>
+
+
+    <div id="resultadoPedido"
+         class="resultado">
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PAGOS -->
+<!-- ========================= -->
+
+<section id="pagos"
+         class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                FACTORY METHOD
+            </span>
+
+            <h2>
+                Método de pago
+            </h2>
+
+            <p>
+                Selecciona el método con el que deseas realizar
+                el pago del pedido.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="metodos-pago">
+
+        <button onclick="seleccionarPago('Tarjeta')"
+                class="pago-card">
+
+            <span>
+                💳
+            </span>
+
+            <strong>
+                Tarjeta
+            </strong>
+
+            <small>
+                Pago con tarjeta
+            </small>
+
+        </button>
+
+
+        <button onclick="seleccionarPago('PSE')"
+                class="pago-card">
+
+            <span>
+                🏦
+            </span>
+
+            <strong>
+                PSE
+            </strong>
+
+            <small>
+                Pago bancario
+            </small>
+
+        </button>
+
+
+        <button onclick="seleccionarPago('Nequi')"
+                class="pago-card">
+
+            <span>
+                📱
+            </span>
+
+            <strong>
+                Nequi
+            </strong>
+
+            <small>
+                Pago digital
+            </small>
+
+        </button>
+
+    </div>
+
+
+    <div id="resultadoPago"
+         class="resultado">
+
+        Selecciona un método de pago.
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- ENVÍOS -->
+<!-- ========================= -->
+
+<section id="envios"
+         class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                ABSTRACT FACTORY
+            </span>
+
+            <h2>
+                Tipo de envío
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>
+                Tipo de envío
+            </label>
+
+            <select id="tipoEnvioFactory">
+
+                <option value="nacional">
+                    Nacional
+                </option>
+
+                <option value="internacional">
+                    Internacional
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                ID del pedido
+            </label>
+
+            <input type="text"
+                   id="pedidoEnvio"
+                   placeholder="Ejemplo: P001">
+
+        </div>
+
+    </div>
+
+
+    <button class="btn btn-principal"
+            onclick="calcularEnvio()">
+
+        Realizar pedido
+
+    </button>
+
+
+    <div id="resultadoEnvio"
+         class="resultado">
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- PROTOTYPE -->
+<!-- ========================= -->
+
+<!-- ========================= -->
+<!-- PROTOTYPE -->
+<!-- ========================= -->
+
+<section class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                PROTOTYPE
+            </span>
+
+            <h2>
+                Duplicar producto
+            </h2>
+
+            <p>
+                Permite crear una copia de un producto
+                existente en el catálogo.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="prototype-card">
+
+        <div id="productoPrototypeInfo">
+
+            <span class="producto-categoria">
+                PRODUCTO ORIGINAL
+            </span>
+
+            <h3>
+                Cargando producto...
+            </h3>
+
+            <p>
+                Seleccionando un producto del catálogo.
+            </p>
+
+        </div>
+
+
+        <button
+            id="btnDuplicarProducto"
+            class="btn btn-principal"
+            onclick="duplicarProducto()">
+
+            Duplicar producto
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="resultadoPrototype"
+        class="resultado">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- ADAPTER -->
+<!-- ========================= -->
+
+<section class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                ADAPTER
+            </span>
+
+            <h2>
+                Pasarela de pago
+            </h2>
+
+            <p>
+                Adaptación de un servicio externo de pago
+                al sistema del Marketplace.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="adapter-form">
+
+        <input type="number"
+               id="montoAdapter"
+               placeholder="Monto del pago"
+               min="0">
+
+
+        <button class="btn btn-principal"
+                onclick="probarAdapter()">
+
+            Procesar pago
+
+        </button>
+
+    </div>
+
+
+    <div id="resultadoAdapter"
+         class="resultado">
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- BRIDGE -->
+<!-- ========================= -->
+
+<section class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                BRIDGE
+            </span>
+
+            <h2>
+                Notificación del pedido
+            </h2>
+
+            <p>
+                Selecciona el canal mediante el cual
+                deseas recibir la notificación.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="notificaciones">
+
+        <button class="notificacion-card"
+                onclick="probarBridge('Email')">
+
+            <span>
+                📧
+            </span>
+
+            <strong>
+                Email
+            </strong>
+
+        </button>
+
+
+        <button class="notificacion-card"
+                onclick="probarBridge('SMS')">
+
+            <span>
+                📱
+            </span>
+
+            <strong>
+                SMS
+            </strong>
+
+        </button>
+
+    </div>
+
+
+    <div id="resultadoBridge"
+         class="resultado">
+
+    </div>
+
+</section>
+
+
+<!-- ========================= -->
+<!-- SINGLETON -->
+<!-- ========================= -->
+
+<section id="patrones"
+         class="market-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="etiqueta">
+                SINGLETON
+            </span>
+
+            <h2>
+                Configuración del Marketplace
+            </h2>
+
+            <p>
+                Configuración centralizada utilizada por
+                el sistema.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="configuracion-grid">
+
+        <div class="config-card">
+
+            <span>
+                💰
+            </span>
+
+            <small>
+                Moneda
+            </small>
+
+            <strong>
+                COP
+            </strong>
+
+        </div>
+
+
+        <div class="config-card">
+
+            <span>
+                📊
+            </span>
+
+            <small>
+                Comisión
+            </small>
+
+            <strong>
+                10%
+            </strong>
+
+        </div>
+
+
+        <div class="config-card">
+
+            <span>
+                📦
+            </span>
+
+            <small>
+                Stock mínimo
+            </small>
+
+            <strong>
+                5
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <button class="btn btn-principal"
+            onclick="probarSingleton()">
+
+        Consultar configuración
+
+    </button>
+
+
+    <div id="resultadoSingleton"
+         class="resultado">
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    <div class="footer-contenido">
+
+        <strong>
+            Marketplace Multivendedor
+        </strong>
+
+        <span>
+            Proyecto de Patrones de Software
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script src="/js/marketplace.js"></script>
+
+</body>
+
+</html>
