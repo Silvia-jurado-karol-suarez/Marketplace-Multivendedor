@@ -26,17 +26,13 @@ public class PedidoService {
 
     public Pedido crearPedido(
             List<String> productosIds,
+            double total,
             String estado) {
 
         List<Producto> productos =
-                productoRepository.findAllById(productosIds);
-
-        double total = 0;
-
-        for (Producto producto : productos) {
-
-            total += producto.getPrecio();
-        }
+                productoRepository.findAllById(
+                        productosIds
+                );
 
         Pedido pedido =
                 new PedidoBuilder()
@@ -45,7 +41,9 @@ public class PedidoService {
                         .conEstado(estado)
                         .build();
 
-        return pedidoRepository.save(pedido);
+        return pedidoRepository.save(
+                pedido
+        );
     }
 
     public List<Pedido> listarPedidos() {

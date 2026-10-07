@@ -4,7 +4,7 @@
 
 let carrito = [];
 
-
+let totalDecorado = null;
 // ======================================================
 // PRODUCTO SELECCIONADO PARA PROTOTYPE
 // ======================================================
@@ -12,226 +12,141 @@ let carrito = [];
 let productoPrototypeSeleccionado = null;
 
 
-// ======================================================
-// CARGAR PRODUCTOS DESDE MONGODB
-// ======================================================
+// =====================================================
+// CARGAR PRODUCTOS USANDO COMPOSITE
+// =====================================================
 
 async function cargarProductos() {
-
     try {
-
-        const respuesta =
-            await fetch("/api/productos");
-
+        const respuesta = await fetch(
+            "/composite/catalogo"
+        );
         if (!respuesta.ok) {
-
             throw new Error(
-                "No se pudieron cargar los productos."
+                "No se pudo cargar el catálogo"
             );
-
         }
+        const datos = await respuesta.json();
+        console.log(
+            "Respuesta del Composite:",
+            datos
+        );
+        const categorias =
+            datos.categorias || [];
 
-        const productos =
-            await respuesta.json();
+        cargarFiltroCategorias(
+            categorias
+        );
+        const productos = [];
 
 
-        const contenedor =
-            document.getElementById(
-                "listaProductos"
-            );
+        categorias.forEach(
+            categoria => {
 
+                const elementos =
+                    categoria.elementos || [];
 
-        contenedor.innerHTML = "";
 
+                elementos.forEach(
+                    producto => {
 
-        if (productos.length === 0) {
+                        productos.push(
+                            producto
+                        );
 
-            contenedor.innerHTML = `
-
-                <div class="estado-vacio">
-
-                    <span>📦</span>
-
-                    <h3>
-                        No hay productos disponibles
-                    </h3>
-
-                    <p>
-                        Actualmente no existen productos
-                        en el Marketplace.
-                    </p>
-
-                </div>
-
-            `;
-
-            productoPrototypeSeleccionado = null;
-
-            actualizarProductoPrototype();
-
-            return;
-        }
-
-
-        // ==================================================
-        // SELECCIONAR PRODUCTO PARA PROTOTYPE
-        // ==================================================
-
-        /*
-         * Tomamos el primer producto real de MongoDB.
-         *
-         * Si tu primer producto es "Camisa",
-         * Prototype trabajará con esa camisa.
-         */
-
-        productoPrototypeSeleccionado =
-            productos[0];
-
-
-        actualizarProductoPrototype();
-
-
-        // ==================================================
-        // CREAR TARJETAS DE PRODUCTOS
-        // ==================================================
-
-        productos.forEach(
-            producto => {
-
-                const tarjeta =
-                    document.createElement(
-                        "article"
-                    );
-
-
-                tarjeta.className =
-                    "producto-card";
-
-
-                tarjeta.innerHTML = `
-
-                    <div class="producto-imagen">
-
-                        ${obtenerIcono(
-                            producto.categoria
-                        )}
-
-                    </div>
-
-
-                    <div class="producto-info">
-
-                        <span class="producto-categoria">
-
-                            ${producto.categoria ||
-                              "Sin categoría"}
-
-                        </span>
-
-
-                        <h3>
-
-                            ${producto.nombre}
-
-                        </h3>
-
-
-                        <p>
-
-                            ${producto.descripcion ||
-                              "Sin descripción"}
-
-                        </p>
-
-
-                        <div class="producto-footer">
-
-                            <strong>
-
-                                $${Number(
-                                    producto.precio
-                                ).toLocaleString(
-                                    "es-CO"
-                                )}
-
-                            </strong>
-
-
-                            <button
-                                class="btn btn-principal btn-agregar"
-                                ${producto.stock <= 0
-                                    ? "disabled"
-                                    : ""}
-                            >
-
-                                ${producto.stock <= 0
-                                    ? "Agotado"
-                                    : "Agregar"}
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                `;
-
-
-                // ==================================================
-                // BOTÓN AGREGAR
-                // ==================================================
-
-                const boton =
-                    tarjeta.querySelector(
-                        ".btn-agregar"
-                    );
-
-
-                if (
-                    producto.stock > 0
-                ) {
-
-                    boton.addEventListener(
-                        "click",
-                        function () {
-
-                            agregarAlCarrito(
-                                producto
-                            );
-
-                        }
-                    );
-
-                }
-
-
-                contenedor.appendChild(
-                    tarjeta
+                    }
                 );
 
             }
         );
 
 
+        console.log(
+            "Productos obtenidos:",
+            productos
+        );
+
+
+        // =================================================
+        // PRODUCTO PARA PROTOTYPE
+        // =================================================
+
+        if (productos.length > 0) {
+
+            productoPrototypeSeleccionado =
+                productos[0];
+
+        } else {
+
+            productoPrototypeSeleccionado =
+                null;
+
+        }
+
+
+        // =================================================
+        // MOSTRAR PRODUCTOS
+        // =================================================
+
+        mostrarProductosCatalogo(
+            productos
+        );
+
+
+        // =================================================
+        // INFORMACIÓN DEL COMPOSITE
+        // =================================================
+
+        const resultadoComposite =
+            document.getElementById(
+                "resultadoComposite"
+            );
+
+
+        if (resultadoComposite) {
+
+            resultadoComposite.innerHTML = `
+
+                <div class="resultado">
+
+                    <h3>
+                        Catálogo organizado mediante Composite
+                    </h3>
+
+                    <p>
+                        Categorías:
+                        <strong>
+                            ${categorias.length}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Productos:
+                        <strong>
+                            ${productos.length}
+                        </strong>
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
     } catch (error) {
 
         console.error(
-            "Error cargando productos:",
+            "Error al cargar productos:",
             error
         );
 
 
-        const contenedor =
-            document.getElementById(
-                "listaProductos"
-            );
+        document.getElementById(
+            "listaProductos"
+        ).innerHTML = `
 
-
-        contenedor.innerHTML = `
-
-            <div class="estado-vacio">
-
-                <span>⚠️</span>
+            <div class="mensaje-error">
 
                 <h3>
                     Error al cargar productos
@@ -246,6 +161,304 @@ async function cargarProductos() {
         `;
 
     }
+
+}
+
+// =====================================================
+// CARGAR CATEGORÍAS EN EL FILTRO
+// =====================================================
+
+function cargarFiltroCategorias(
+    categorias
+) {
+
+    const filtro =
+        document.getElementById(
+            "filtroCategoria"
+        );
+
+
+    if (!filtro) {
+
+        console.warn(
+            "No existe el elemento filtroCategoria"
+        );
+
+        return;
+
+    }
+
+
+    // Limpiar opciones actuales
+
+    filtro.innerHTML = `
+
+        <option value="todas">
+
+            Todas las categorías
+
+        </option>
+
+    `;
+
+
+    // Agregar categorías provenientes
+    // del Composite
+
+    categorias.forEach(
+        categoria => {
+
+            const opcion =
+                document.createElement(
+                    "option"
+                );
+
+
+            opcion.value =
+                categoria.nombre;
+
+
+            opcion.textContent =
+                categoria.nombre;
+
+
+            filtro.appendChild(
+                opcion
+            );
+
+        }
+    );
+
+}
+
+// =====================================================
+// FILTRAR PRODUCTOS POR CATEGORÍA
+// =====================================================
+
+function filtrarCategoria() {
+
+    const filtro =
+        document.getElementById(
+            "filtroCategoria"
+        );
+
+
+    if (!filtro) {
+
+        return;
+
+    }
+
+
+    const categoriaSeleccionada =
+        filtro.value;
+
+    const tarjetas =
+        document.querySelectorAll(
+            "#listaProductos .producto-card"
+        );
+    tarjetas.forEach(
+        tarjeta => {
+
+            const categoria =
+                tarjeta.dataset.categoria;
+
+            if (
+                categoriaSeleccionada ===
+                "todas"
+            ) {
+
+                tarjeta.style.display = "";
+
+            } else if (
+                categoria ===
+                categoriaSeleccionada
+            ) {
+
+                tarjeta.style.display = "";
+
+            } else {
+
+                tarjeta.style.display = "none";
+
+            }
+
+        }
+    );
+
+}
+
+// =====================================================
+// MOSTRAR PRODUCTOS DEL CATÁLOGO
+// =====================================================
+
+function mostrarProductosCatalogo(
+    productos
+) {
+
+    const contenedor =
+        document.getElementById(
+            "listaProductos"
+        );
+
+
+    if (!contenedor) {
+
+        return;
+
+    }
+
+
+    if (
+        !productos ||
+        productos.length === 0
+    ) {
+
+        contenedor.innerHTML = `
+
+            <div class="vacio">
+
+                Todavía no hay productos
+                registrados.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    contenedor.innerHTML = "";
+
+
+    productos.forEach(
+        producto => {
+
+            const tarjeta =
+                document.createElement(
+                    "div"
+                );
+
+
+            tarjeta.className =
+                "producto-card";
+
+
+            // IMPORTANTE:
+            // Guardamos la categoría
+            // en la tarjeta.
+
+            tarjeta.dataset.categoria =
+                producto.categoria ||
+                "Sin categoría";
+
+
+            tarjeta.innerHTML = `
+
+                <div>
+
+                    <span class="categoria">
+
+                        ${
+                            producto.categoria ||
+                            "Sin categoría"
+                        }
+
+                    </span>
+
+
+                    <h3>
+
+                        ${
+                            producto.nombre
+                        }
+
+                    </h3>
+
+
+                    <p>
+
+                        ${
+                            producto.descripcion ||
+                            ""
+                        }
+
+                    </p>
+
+
+                    <strong>
+
+                        $
+                        ${
+                            formatearPrecio(
+                                producto.precio
+                            )
+                        }
+
+                    </strong>
+
+
+                    <p>
+
+                        Stock:
+
+                        ${
+                            producto.stock
+                        }
+
+                    </p>
+
+
+                    <small>
+
+                        ID:
+
+                        ${
+                            producto.id ||
+                            "Pendiente"
+                        }
+
+                    </small>
+
+                </div>
+
+
+                <div class="acciones">
+
+                    <button
+
+                        onclick="
+                            agregarAlCarrito(
+                                ${JSON.stringify(
+                                    producto
+                                ).replace(
+                                    /"/g,
+                                    '&quot;'
+                                )}
+                            )
+                        "
+
+                        class="btn-agregar"
+
+                    >
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            contenedor.appendChild(
+                tarjeta
+            );
+
+        }
+    );
 
 }
 
@@ -717,28 +930,67 @@ function eliminarDelCarrito(index) {
 
 // ======================================================
 // CREAR PEDIDO
+// BUILDER + DECORATOR
 // ======================================================
 
 async function crearPedido() {
 
+    if (carrito.length === 0) {
+
+        alert("El carrito está vacío.");
+        return;
+    }
+
+    // ------------------------------------------
+    // IDs DE LOS PRODUCTOS
+    // ------------------------------------------
+
+    const productosIds = carrito.map(
+        producto => producto.id
+    );
+
+
+    // ------------------------------------------
+    // SUBTOTAL REAL
+    // ------------------------------------------
+
+    const subtotal = calcularSubtotal();
+
+
+    // ------------------------------------------
+    // TOTAL FINAL
+    // ------------------------------------------
+
+    let totalPedido = subtotal;
+
+
+    // Si existe un total calculado por Decorator,
+    // se utiliza ese valor.
+
     if (
-        carrito.length === 0
+        totalDecorado !== null &&
+        !isNaN(totalDecorado)
     ) {
 
-        alert(
-            "El carrito está vacío."
-        );
-
-        return;
-
+        totalPedido =
+            Number(totalDecorado);
     }
 
 
-    const productosIds =
-        carrito.map(
-            producto =>
-                producto.id
-        );
+    console.log(
+        "Subtotal:",
+        subtotal
+    );
+
+    console.log(
+        "Total Decorator:",
+        totalDecorado
+    );
+
+    console.log(
+        "Total enviado al Builder:",
+        totalPedido
+    );
 
 
     try {
@@ -747,48 +999,54 @@ async function crearPedido() {
             await fetch(
                 "/pedidos",
                 {
-
-                    method:
-                        "POST",
+                    method: "POST",
 
                     headers: {
-
                         "Content-Type":
                             "application/json"
-
                     },
 
-                    body:
-                        JSON.stringify({
+                    body: JSON.stringify({
 
-                            productosIds:
-                                productosIds
+                        productosIds:
+                            productosIds,
 
-                        })
-
+                        total:
+                            totalPedido
+                    })
                 }
             );
 
 
-        if (
-            !respuesta.ok
-        ) {
+        if (!respuesta.ok) {
 
             const mensaje =
                 await respuesta.text();
-
 
             throw new Error(
                 mensaje ||
                 "No se pudo crear el pedido."
             );
-
         }
 
+
+        // ------------------------------------------
+        // RESPUESTA DEL BACKEND
+        // ------------------------------------------
 
         const pedido =
             await respuesta.json();
 
+
+        console.log(
+            "Pedido recibido:",
+            pedido
+        );
+
+
+        // ------------------------------------------
+        // MOSTRAR PEDIDO
+        // ------------------------------------------
 
         document.getElementById(
             "resultadoPedido"
@@ -833,27 +1091,29 @@ async function crearPedido() {
         `;
 
 
+        // ------------------------------------------
+        // GUARDAR PEDIDO
+        // ------------------------------------------
+
         localStorage.setItem(
             "pedidoActual",
-            JSON.stringify(
-                pedido
-            )
+            JSON.stringify(pedido)
         );
 
+
+        // ------------------------------------------
+        // COLOCAR ID DEL PEDIDO EN ENVÍO
+        // ------------------------------------------
 
         const campoPedido =
             document.getElementById(
                 "pedidoEnvio"
             );
 
-
-        if (
-            campoPedido
-        ) {
+        if (campoPedido) {
 
             campoPedido.value =
                 pedido.id;
-
         }
 
 
@@ -882,11 +1142,8 @@ async function crearPedido() {
             </div>
 
         `;
-
     }
-
 }
-
 
 // ======================================================
 // SELECCIONAR MÉTODO DE PAGO
@@ -1753,4 +2010,298 @@ document.addEventListener(
         mostrarCarrito();
 
     }
+    
 );
+// ======================================================
+// DECORATOR
+// ======================================================
+
+function calcularSubtotal() {
+
+    return carrito.reduce(
+        (total, producto) => {
+
+            return total +
+                (Number(producto.precio) *
+                 Number(producto.cantidad));
+
+        },
+        0
+    );
+}
+
+
+function formatearPrecio(valor) {
+
+    return Number(valor).toLocaleString(
+        "es-CO",
+        {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }
+    );
+}
+
+
+async function aplicarDecorator() {
+
+    const campoPorcentaje =
+        document.getElementById(
+            "porcentajeDescuento"
+        );
+
+    const resultado =
+        document.getElementById(
+            "resultadoDecorator"
+        );
+
+    if (!campoPorcentaje || !resultado) {
+
+        console.error(
+            "No se encontraron los elementos del Decorator."
+        );
+
+        return;
+    }
+
+
+    // ==================================================
+    // OBTENER PORCENTAJE
+    // ==================================================
+
+    const porcentaje =
+        parseFloat(
+            campoPorcentaje.value
+        );
+
+
+    // ==================================================
+    // VALIDAR CARRITO
+    // ==================================================
+
+    if (carrito.length === 0) {
+
+        totalDecorado = null;
+
+        resultado.innerHTML = `
+            <div class="resultado">
+
+                <p>
+                    Agrega productos al pedido
+                    antes de aplicar el descuento.
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    // ==================================================
+    // VALIDAR PORCENTAJE
+    // ==================================================
+
+    if (
+        isNaN(porcentaje) ||
+        porcentaje < 0 ||
+        porcentaje > 100
+    ) {
+
+        totalDecorado = null;
+
+        resultado.innerHTML = `
+            <div class="resultado">
+
+                <p>
+                    Ingresa un porcentaje entre
+                    0 y 100.
+                </p>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    // ==================================================
+    // CALCULAR SUBTOTAL REAL DEL CARRITO
+    // ==================================================
+
+    const subtotal =
+        calcularSubtotal();
+
+
+    try {
+
+        // ==================================================
+        // ENVIAR INFORMACIÓN AL BACKEND
+        // ==================================================
+
+        const respuesta =
+            await fetch(
+                "/decorator/calcular",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        subtotal:
+                            subtotal,
+
+                        porcentajeDescuento:
+                            porcentaje
+
+                    })
+                }
+            );
+
+
+        // ==================================================
+        // VALIDAR RESPUESTA
+        // ==================================================
+
+        if (!respuesta.ok) {
+
+            const mensaje =
+                await respuesta.text();
+
+            throw new Error(
+                mensaje ||
+                "No se pudo calcular el descuento."
+            );
+        }
+
+
+        // ==================================================
+        // RECIBIR RESPUESTA DEL DECORATOR
+        // ==================================================
+
+        const datos =
+            await respuesta.json();
+
+
+        // ==================================================
+        // GUARDAR EL TOTAL DECORADO
+        // ==================================================
+
+        totalDecorado =
+            Number(
+                datos.total
+            );
+
+
+        // ==================================================
+        // MOSTRAR RESULTADO
+        // ==================================================
+        resultado.innerHTML = `
+            <div class="resultado">
+                <h3>
+                     Descuento aplicado
+                </h3>
+                <p>
+                    <strong>
+                        Subtotal:
+                    </strong>
+                    $${formatearPrecio(
+                        datos.subtotal
+                    )}
+                </p>
+                <p>
+                    <strong>
+                        Descuento (${porcentaje}%):
+                    </strong>
+                    -$${formatearPrecio(
+                        datos.descuento
+                    )}
+                </p>
+                <p>
+                    <strong>
+                        Total con Decorator:
+                    </strong>
+                    $${formatearPrecio(
+                        datos.total
+                    )}
+                </p>
+            </div>
+
+        `;
+
+
+        // ==================================================
+        // ACTUALIZAR TOTAL DEL PEDIDO
+        // ==================================================
+
+        const campoTotal =
+            document.getElementById(
+                "total"
+            );
+
+        if (campoTotal) {
+
+            campoTotal.textContent =
+                "$" +
+                formatearPrecio(
+                    datos.total
+                );
+        }
+
+
+        console.log(
+            "Decorator aplicado correctamente."
+        );
+
+        console.log(
+            "Subtotal:",
+            datos.subtotal
+        );
+
+        console.log(
+            "Descuento:",
+            datos.descuento
+        );
+
+        console.log(
+            "Total decorado:",
+            totalDecorado
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error en Decorator:",
+            error
+        );
+
+
+        // Si ocurre un error,
+        // eliminamos el total decorado.
+
+        totalDecorado = null;
+
+
+        resultado.innerHTML = `
+
+            <div class="resultado">
+
+                <p>
+                     No fue posible aplicar
+                    el descuento.
+                </p>
+
+                <p>
+                    ${error.message}
+                </p>
+
+            </div>
+
+        `;
+    }
+}

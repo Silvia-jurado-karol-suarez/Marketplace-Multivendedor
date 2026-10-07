@@ -124,9 +124,7 @@
          class="market-section">
 
     <div class="section-heading">
-
         <div>
-
             <span class="etiqueta">
                 CATÁLOGO
             </span>
@@ -135,16 +133,35 @@
                 Productos disponibles
             </h2>
 
+            <p>
+                Productos organizados por categorías mediante Composite.
+            </p>
         </div>
-
     </div>
 
+    <!-- FILTRO DEL COMPOSITE -->
+    <div class="catalogo-filtros">
+        <label for="filtroCategoria">
+            Filtrar por categoría
+        </label>
 
+        <select id="filtroCategoria"
+                onchange="filtrarCategoria()">
+
+            <option value="todas">
+                Todas las categorías
+            </option>
+
+        </select>
+    </div>
+
+    <!-- MISMO CATÁLOGO DE SIEMPRE -->
     <div id="listaProductos"
          class="productos-grid">
+    </div>
 
-        
-
+    <div id="resultadoComposite"
+         class="resultado">
     </div>
 
 </section>
@@ -233,7 +250,47 @@
 
             </div>
 
+<div class="decorator-box">
 
+    <span class="etiqueta">
+        DECORATOR
+    </span>
+
+    <h3>
+        Personalizar precio del pedido
+    </h3>
+
+    <p>
+        Aplica un descuento al total utilizando el patrón Decorator.
+    </p>
+
+    <label for="porcentajeDescuento">
+        Porcentaje de descuento
+    </label>
+
+    <input
+        type="number"
+        id="porcentajeDescuento"
+        min="0"
+        max="100"
+        value="0"
+        placeholder="Ejemplo: 10">
+
+    <button
+        class="btn btn-principal"
+        onclick="aplicarDecorator()">
+
+        Aplicar descuento
+
+    </button>
+
+    <div
+        id="resultadoDecorator"
+        class="resultado">
+
+    </div>
+
+</div>
             <hr>
 
 

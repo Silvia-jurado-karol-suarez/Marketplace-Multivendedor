@@ -3,12 +3,14 @@ package com.marketplace.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="productos")
-public class Producto implements Cloneable {
+import com.marketplace.composite.ElementoCatalogo;
 
-	@Id
+@Document(collection = "productos")
+public class Producto implements ElementoCatalogo, Cloneable {
+
+    @Id
     private String id;
-	
+
     private String nombre;
     private String descripcion;
     private double precio;
@@ -16,12 +18,14 @@ public class Producto implements Cloneable {
     private String categoria;
     private Vendedor vendedor;
 
+    
     public Producto() {
     }
 
+    
     public Producto(String id, String nombre, String descripcion,
-                     double precio, int stock, String categoria,
-                     Vendedor vendedor) {
+                    double precio, int stock, String categoria,
+                    Vendedor vendedor) {
 
         this.id = id;
         this.nombre = nombre;
@@ -31,6 +35,10 @@ public class Producto implements Cloneable {
         this.categoria = categoria;
         this.vendedor = vendedor;
     }
+
+    // =========================
+    // GETTERS Y SETTERS
+    // =========================
 
     public String getId() {
         return id;
@@ -87,7 +95,23 @@ public class Producto implements Cloneable {
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
     }
-    
+
+    // =========================
+    // MÉTODOS DEL COMPOSITE
+    // =========================
+
+    @Override
+    public void mostrar() {
+        System.out.println(
+            "Producto: " + nombre +
+            " | Precio: $" + precio
+        );
+    }
+
+    // =========================
+    // MÉTODO DEL PROTOTYPE
+    // =========================
+
     @Override
     public Producto clone() {
 
@@ -98,8 +122,8 @@ public class Producto implements Cloneable {
         } catch (CloneNotSupportedException e) {
 
             throw new RuntimeException(
-                    "No se pudo clonar el producto",
-                    e
+                "No se pudo clonar el producto",
+                e
             );
         }
     }

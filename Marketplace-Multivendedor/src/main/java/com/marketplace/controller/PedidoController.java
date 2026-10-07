@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.marketplace.dto.CrearPedidoRequest;
 import com.marketplace.model.Pedido;
 import com.marketplace.service.PedidoService;
 
@@ -26,6 +27,7 @@ public class PedidoController {
         Pedido pedido =
                 pedidoService.crearPedido(
                         request.getProductosIds(),
+                        request.getTotal(),
                         "PENDIENTE"
                 );
 
