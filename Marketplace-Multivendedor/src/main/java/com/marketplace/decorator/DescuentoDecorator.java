@@ -1,5 +1,7 @@
 package com.marketplace.decorator;
-
+import com.marketplace.decorator.PrecioComponent;
+import com.marketplace.decorator.PrecioBase;
+import com.marketplace.decorator.DescuentoDecorator;
 public class DescuentoDecorator extends PrecioDecorator {
 
     private final double porcentaje;
