@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba Proxy | Marketplace</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:28px 16px;background:#f3f5f9;color:#202938;font-family:Arial,sans-serif}
+main{max-width:1000px;margin:auto}
+h1{color:#263b60}
+.panel{background:white;padding:22px;margin:18px 0;border-radius:14px;box-shadow:0 5px 20px #0000000c}
+label{display:block;margin:12px 0 6px;font-weight:bold}
+input,textarea,button{width:100%;padding:11px;border:1px solid #ccd3df;border-radius:7px;font:inherit}
+textarea{min-height:75px;resize:vertical}
+button{background:#263b60;color:white;cursor:pointer;border:0;margin-top:12px}
+button:hover{background:#172947}
+button.danger{background:#a93232}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.producto{border:1px solid #dce2ec;border-radius:10px;padding:15px;overflow-wrap:anywhere}
+.producto h3{margin-top:0}
+.precio{font-size:20px;font-weight:bold}
+.muted{color:#64748b;font-size:14px}
+#estado{padding:12px;background:#eaf0fa;border-radius:8px;white-space:pre-wrap}
+#productos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>Patrón Proxy — Marketplace</h1>
+<p>Prueba las operaciones de productos mediante el servicio intermediario.</p>
+
+<div id="estado" role="status">Cargando productos desde el backend...</div>
+
+<section class="panel">
+<h2>Productos registrados</h2>
+<button id="recargar" type="button">Consultar productos (GET)</button>
+<div id="productos" style="margin-top:18px"></div>
+</section>
+
+<section class="panel">
+<h2>Buscar producto por ID</h2>
+<label for="buscarId">ID del producto</label>
+<input id="buscarId" placeholder="Pega el ID de MongoDB">
+<button id="buscar" type="button">Buscar (GET / ID)</button>
+<div id="resultadoBusqueda"></div>
+</section>
+
+<section class="panel">
+<h2 id="tituloFormulario">Crear producto</h2>
+<p class="muted">Completa los campos. Para actualizar, selecciona un producto de la lista.</p>
+<label for="nombre">Nombre</label>
+<input id="nombre" placeholder="Ej. Teclado mecánico" required>
+
+<label for="descripcion">Descripción</label>
+<textarea id="descripcion" placeholder="Descripción del producto"></textarea>
+
+<label for="precio">Precio</label>
+<input id="precio" type="number" min="0" step="0.01" placeholder="Ej. 120000" required>
+
+<label for="stock">Stock</label>
+<input id="stock" type="number" min="0" step="1" placeholder="Ej. 10" required>
+
+<label for="categoria">Categoría</label>
+<input id="categoria" placeholder="Ej. Tecnología">
+
+<label for="vendedor">ID del vendedor (si aplica)</label>
+<input id="vendedor" placeholder="ID existente del vendedor">
+
+<button id="guardar" type="button">Crear producto (POST)</button>
+<button id="cancelar" type="button" style="display:none;background:#64748b">Cancelar edición</button>
+</section>
+</main>
+
+<script>
+const API = "/api/productos";
+const $ = id => document.getElementById(id);
+
+let productosCargados = [];
+let idEditando = null;
+
+function mostrarEstado(mensaje) {
+    $("estado").textContent = mensaje;
+}
+
+async function solicitar(url, opciones = {}) {
+    const respuesta = await fetch(url, {
+        ...opciones,
+        headers: {
+            ...(opciones.body ? {"Content-Type":"application/json"} : {}),
+            ...opciones.headers
+        }
+    });
+
+    if (!respuesta.ok) {
+        const detalle = await respuesta.text();
+        throw new Error(`HTTP ${respuesta.status}: ${detalle || respuesta.statusText}`);
+    }
+
+    if (respuesta.status === 204) return null;
+
+    const texto = await respuesta.text();
+    return texto ? JSON.parse(texto) : null;
+}
+
+function texto(tag, contenido, clase) {
+    const elemento = document.createElement(tag);
+    elemento.textContent = contenido ?? "";
+    if (clase) elemento.className = clase;
+    return elemento;
+}
+
+async function cargarProductos() {
+    try {
+        mostrarEstado("Consultando productos a través del backend...");
+        const productos = await solicitar(API);
+        productosCargados = Array.isArray(productos) ? productos : [];
+        pintarProductos();
+        mostrarEstado(`Consulta completada. Productos recibidos: ${productosCargados.length}.`);
+    } catch (error) {
+        mostrarEstado("Error al consultar productos: " + error.message);
+    }
+}
+
+function pintarProductos() {
+    const contenedor = $("productos");
+    contenedor.replaceChildren();
+
+    if (productosCargados.length === 0) {
+        contenedor.append(texto("p", "No hay productos registrados."));
+        return;
+    }
+
+    productosCargados.forEach(producto => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "producto";
+
+        tarjeta.append(
+            texto("h3", producto.nombre || "Producto sin nombre"),
+            texto("p", producto.descripcion || "Sin descripción"),
+            texto("p", `Categoría: ${producto.categoria || "Sin categoría"}`),
+            texto("p", `Precio: ${producto.precio ?? "No especificado"}`, "precio"),
+            texto("p", `Stock: ${producto.stock ?? "No especificado"}`),
+            texto("p", `ID: ${producto.id || producto._id || "No devuelto"}`, "muted")
+        );
+
+        const editar = texto("button", "Editar producto");
+        editar.type = "button";
+        editar.onclick = () => prepararEdicion(producto);
+
+        const eliminar = texto("button", "Eliminar producto");
+        eliminar.type = "button";
+        eliminar.className = "danger";
+        eliminar.onclick = () => eliminarProducto(producto.id || producto._id);
+
+        tarjeta.append(editar, eliminar);
+        contenedor.append(tarjeta);
+    });
+}
+
+function prepararEdicion(producto) {
+    idEditando = producto.id || producto._id;
+    if (!idEditando) {
+        mostrarEstado("El producto no tiene un ID disponible para editar.");
+        return;
+    }
+
+    $("nombre").value = producto.nombre || "";
+    $("descripcion").value = producto.descripcion || "";
+    $("precio").value = producto.precio ?? "";
+    $("stock").value = producto.stock ?? "";
+    $("categoria").value = producto.categoria || "";
+    $("vendedor").value =
+        typeof producto.vendedor === "string"
+            ? producto.vendedor
+            : producto.vendedor?.id || producto.vendedor?._id || "";
+
+    $("tituloFormulario").textContent = "Actualizar producto";
+    $("guardar").textContent = "Guardar cambios (PUT)";
+    $("cancelar").style.display = "block";
+    window.scrollTo({top: document.body.scrollHeight, behavior:"smooth"});
+}
+
+function limpiarFormulario() {
+    idEditando = null;
+    ["nombre","descripcion","precio","stock","categoria","vendedor"]
+        .forEach(id => $(id).value = "");
+    $("tituloFormulario").textContent = "Crear producto";
+    $("guardar").textContent = "Crear producto (POST)";
+    $("cancelar").style.display = "none";
+}
+
+function leerFormulario() {
+    const producto = {
+        nombre: $("nombre").value.trim(),
+        descripcion: $("descripcion").value.trim(),
+        precio: Number($("precio").value),
+        stock: Number($("stock").value),
+        categoria: $("categoria").value.trim()
+    };
+
+    if (!producto.nombre || $("precio").value === "" || $("stock").value === "") {
+        throw new Error("Completa nombre, precio y stock.");
+    }
+    if (!Number.isFinite(producto.precio) || producto.precio < 0 ||
+        !Number.isInteger(producto.stock) || producto.stock < 0) {
+        throw new Error("Verifica que precio y stock sean valores válidos.");
+    }
+
+    // Incluye vendedor solo si se escribió un ID.
+    // Si tu modelo exige otro formato para vendedor, ajusta este campo.
+    if ($("vendedor").value.trim()) {
+        producto.vendedor = $("vendedor").value.trim();
+    }
+
+    return producto;
+}
+
+async function guardarProducto() {
+    try {
+        const producto = leerFormulario();
+        const editando = Boolean(idEditando);
+
+        if (editando) {
+            await solicitar(`${API}/${encodeURIComponent(idEditando)}`, {
+                method: "PUT",
+                body: JSON.stringify(producto)
+            });
+            mostrarEstado("Producto actualizado mediante la API.");
+        } else {
+            await solicitar(API, {
+                method: "POST",
+                body: JSON.stringify(producto)
+            });
+            mostrarEstado("Producto creado mediante la API.");
+        }
+
+        limpiarFormulario();
+        await cargarProductos();
+    } catch (error) {
+        mostrarEstado("No se pudo guardar: " + error.message);
+    }
+}
+
+async function buscarProducto() {
+    const id = $("buscarId").value.trim();
+    if (!id) {
+        mostrarEstado("Escribe el ID del producto que quieres buscar.");
+        return;
+    }
+
+    try {
+        const producto = await solicitar(`${API}/${encodeURIComponent(id)}`);
+        $("resultadoBusqueda").replaceChildren();
+
+        const bloque = document.createElement("pre");
+        bloque.textContent = JSON.stringify(producto, null, 2);
+        $("resultadoBusqueda").append(bloque);
+        mostrarEstado("Producto encontrado.");
+    } catch (error) {
+        mostrarEstado("No se pudo buscar el producto: " + error.message);
+    }
+}
+
+async function eliminarProducto(id) {
+    if (!id) {
+        mostrarEstado("No se encontró el ID del producto.");
+        return;
+    }
+    if (!confirm("¿Seguro que deseas eliminar este producto?")) return;
+
+    try {
+        await solicitar(`${API}/${encodeURIComponent(id)}`, {method:"DELETE"});
+        mostrarEstado("Solicitud de eliminación completada.");
+        await cargarProductos();
+    } catch (error) {
+        mostrarEstado("No se pudo eliminar: " + error.message);
+    }
+}
+
+$("recargar").addEventListener("click", cargarProductos);
+$("guardar").addEventListener("click", guardarProducto);
+$("buscar").addEventListener("click", buscarProducto);
+$("cancelar").addEventListener("click", limpiarFormulario);
+
+cargarProductos();
+</script>
+</body>
+</html>

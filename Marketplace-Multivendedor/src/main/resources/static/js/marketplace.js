@@ -68,20 +68,59 @@ async function cargarProductos() {
 
 
         // =================================================
-        // PRODUCTO PARA PROTOTYPE
-        // =================================================
-
-        if (productos.length > 0) {
-
-            productoPrototypeSeleccionado =
-                productos[0];
-
-        } else {
-
-            productoPrototypeSeleccionado =
-                null;
-
-        }
+		// PRODUCTO PARA PROTOTYPE
+		// =================================================
+		
+		const selectorPrototype = document.getElementById(
+		    "selectorProductoPrototype"
+		);
+		
+		if (selectorPrototype) {
+		
+		    const idAnterior = selectorPrototype.value;
+		
+		    selectorPrototype.innerHTML = "";
+		
+		    productos.forEach(producto => {
+		        const opcion = document.createElement("option");
+		
+		        opcion.value = producto.id;
+		        opcion.textContent = producto.nombre;
+		
+		        selectorPrototype.appendChild(opcion);
+		    });
+		
+		    const productoAnterior = productos.find(
+		        producto =>
+		            String(producto.id) === String(idAnterior)
+		    );
+		
+		    productoPrototypeSeleccionado =
+		        productoAnterior || productos[0] || null;
+		
+		    selectorPrototype.value =
+		        productoPrototypeSeleccionado
+		            ? productoPrototypeSeleccionado.id
+		            : "";
+		
+		    selectorPrototype.onchange = function () {
+		
+		        productoPrototypeSeleccionado = productos.find(
+		            producto =>
+		                String(producto.id) === String(this.value)
+		        ) || null;
+		
+		        actualizarProductoPrototype();
+		    };
+		
+		} else {
+		
+		    productoPrototypeSeleccionado =
+		        productos[0] || null;
+		
+		}
+		
+		actualizarProductoPrototype();
 
 
         // =================================================
@@ -292,9 +331,7 @@ function filtrarCategoria() {
 // MOSTRAR PRODUCTOS DEL CATÁLOGO
 // =====================================================
 
-function mostrarProductosCatalogo(
-    productos
-) {
+function mostrarProductosCatalogo(productos) {
 
     const contenedor =
         document.getElementById(
@@ -356,17 +393,13 @@ function mostrarProductosCatalogo(
 
 
             tarjeta.innerHTML = `
-
-                <div>
-
-                    <span class="categoria">
-
-                        ${
-                            producto.categoria ||
-                            "Sin categoría"
-                        }
-
-                    </span>
+			    <div>
+			        <span class="categoria etiqueta-flyweight">
+			            <span class="icono-flyweight">📦</span>
+			            <span class="nombre-categoria">
+			                ${producto.categoria || "Sin categoría"}
+			            </span>
+			        </span>
 
 
                     <h3>
@@ -451,6 +484,30 @@ function mostrarProductosCatalogo(
                 </div>
 
             `;
+            
+            // Obtener la presentación compartida mediante Flyweight.
+		obtenerPresentacionFlyweight(producto.categoria)
+		    .then(presentacion => {
+		        if (!presentacion) return;
+		
+		        const etiqueta = tarjeta.querySelector(".etiqueta-flyweight");
+		        const icono = tarjeta.querySelector(".icono-flyweight");
+		        const nombre = tarjeta.querySelector(".nombre-categoria");
+		
+		        if (etiqueta) {
+		            etiqueta.style.backgroundColor = presentacion.color + "20";
+		            etiqueta.style.color = presentacion.color;
+		            etiqueta.style.borderColor = presentacion.color;
+		        }
+		
+		        if (icono) {
+		            icono.textContent = presentacion.icono;
+		        }
+		
+		        if (nombre) {
+		            nombre.textContent = presentacion.nombre;
+		        }
+		    });
 
 
             contenedor.appendChild(
@@ -540,11 +597,53 @@ function actualizarProductoPrototype() {
 // OBTENER ICONO SEGÚN CATEGORÍA
 // ======================================================
 
+// ======================================================
+// FLYWEIGHT: CONSULTAR PRESENTACIÓN COMPARTIDA
+// ======================================================
+
+const presentacionesFlyweight = new Map();
+
+async function obtenerPresentacionFlyweight(nombreCategoria) {
+    const clave = (nombreCategoria || "general")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim()
+        .toLowerCase();
+
+    if (presentacionesFlyweight.has(clave)) {
+        return presentacionesFlyweight.get(clave);
+    }
+
+    try {
+        const respuesta = await fetch(
+            `/api/productos/categorias/${encodeURIComponent(clave)}/presentacion`
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(
+                `No se pudo consultar Flyweight: HTTP ${respuesta.status}`
+            );
+        }
+
+        const presentacion = await respuesta.json();
+        presentacionesFlyweight.set(clave, presentacion);
+
+        return presentacion;
+    } catch (error) {
+        console.error("Error al consultar Flyweight:", error);
+        return null;
+    }
+}
+
+// ======================================================
+// OBTENER ICONO SEGÚN CATEGORÍA
+// Se conserva para no afectar otras funciones.
+// ======================================================
+
 function obtenerIcono(categoria) {
-
-    switch (categoria) {
-
+    switch ((categoria || "").trim()) {
         case "Tecnología":
+        case "Tecnologia":
             return "💻";
 
         case "Hogar":
@@ -558,9 +657,7 @@ function obtenerIcono(categoria) {
 
         default:
             return "📦";
-
     }
-
 }
 
 
@@ -712,7 +809,8 @@ function mostrarCarrito() {
 
         totalElemento.textContent =
             "$0";
-
+		
+		actualizarMontoAdapter();
 
         return;
 
@@ -825,7 +923,8 @@ function mostrarCarrito() {
         total.toLocaleString(
             "es-CO"
         );
-
+        
+    actualizarMontoAdapter();
 }
 
 
@@ -1295,53 +1394,87 @@ async function finalizarCompraFacade() {
 // ======================================================
 
 function seleccionarPago(metodo) {
+    const select = document.getElementById("metodoPago");
 
-    const select =
-        document.getElementById(
-            "metodoPago"
-        );
+    if (!select) return;
 
+    select.value = metodo.toLowerCase();
 
-    if (!select) {
-        return;
-    }
-
-
-    select.value =
-        metodo.toLowerCase();
-
-
-    const resultado =
-        document.getElementById(
-            "resultadoPago"
-        );
-
+    // Mostrar la selección en su propio campo.
+    const resultado = document.getElementById("resultadoPagoSeleccion");
 
     if (resultado) {
-
         resultado.innerHTML = `
-
             <div class="resultado">
-
                 <p>
-
                     Método seleccionado:
-
-                    <strong>
-                        ${metodo}
-                    </strong>
-
+                    <strong>${metodo}</strong>
                 </p>
-
             </div>
-
         `;
-
     }
-
 }
 
+const formularioProxy = document.getElementById("formProxy");
 
+if (formularioProxy) {
+    formularioProxy.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const id = document
+            .getElementById("proxyProductoId")
+            .value.trim();
+
+        const resultado = document.getElementById("resultadoProxy");
+
+        if (!id) {
+            resultado.textContent = "Ingresa el ID del producto.";
+            return;
+        }
+
+        resultado.textContent = "Consultando producto...";
+
+        try {
+            const respuesta = await fetch(
+                `/api/proxy/productos/${encodeURIComponent(id)}`
+            );
+
+            const datos = await respuesta.json();
+
+            if (!respuesta.ok) {
+                throw new Error(
+                    datos.error || "No se pudo consultar el producto."
+                );
+            }
+
+            resultado.replaceChildren();
+
+            const titulo = document.createElement("h3");
+            titulo.textContent = "Producto encontrado";
+
+            const campos = [
+                ["ID", datos.id],
+                ["Nombre", datos.nombre],
+                ["Descripción", datos.descripcion],
+                ["Precio", datos.precio],
+                ["Stock", datos.stock],
+                ["Categoría", datos.categoria]
+            ];
+
+            resultado.appendChild(titulo);
+
+            campos.forEach(([nombre, valor]) => {
+                const parrafo = document.createElement("p");
+                parrafo.textContent =
+                    `${nombre}: ${valor ?? "No disponible"}`;
+                resultado.appendChild(parrafo);
+            });
+
+        } catch (error) {
+            resultado.textContent = error.message;
+        }
+    });
+}
 // ======================================================
 // REALIZAR PAGO
 // ======================================================
@@ -2339,7 +2472,8 @@ async function aplicarDecorator() {
             Number(
                 datos.total
             );
-
+            
+        actualizarMontoAdapter();
 
         // ==================================================
         // MOSTRAR RESULTADO
@@ -2448,4 +2582,18 @@ async function aplicarDecorator() {
 
         `;
     }
+    
+}
+
+function actualizarMontoAdapter() {
+    const campo = document.getElementById("montoAdapter");
+
+    if (!campo) return;
+
+    const total = totalDecorado !== null &&
+                  Number.isFinite(Number(totalDecorado))
+        ? Number(totalDecorado)
+        : calcularSubtotal();
+
+    campo.value = total;
 }

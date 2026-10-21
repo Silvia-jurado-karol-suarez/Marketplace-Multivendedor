@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Flyweight - Marketplace</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px 16px;
+            font-family: Arial, sans-serif;
+            background: #f3f5f9;
+            color: #202938;
+        }
+
+        main {
+            max-width: 650px;
+            margin: 30px auto;
+            padding: 28px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px #00000012;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #263b60;
+        }
+
+        p {
+            line-height: 1.5;
+            color: #596579;
+        }
+
+        label {
+            display: block;
+            margin: 22px 0 8px;
+            font-weight: bold;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccd3df;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 14px;
+            border: none;
+            background: #263b60;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #172947;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        #resultado {
+            margin-top: 24px;
+        }
+
+        .tarjeta {
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid var(--color);
+            background: color-mix(in srgb, var(--color) 9%, white);
+        }
+
+        .icono {
+            font-size: 58px;
+        }
+
+        .nombre {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .muestra {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            vertical-align: middle;
+            background: var(--color);
+        }
+
+        #estado {
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        pre {
+            padding: 12px;
+            overflow-x: auto;
+            background: #f0f2f6;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+<main>
+    <h1>Marketplace: prueba Flyweight</h1>
+    <p>
+        Selecciona una categoría para consultar su presentación
+        directamente desde el backend de Spring Boot.
+    </p>
+
+    <label for="categoria">Categoría</label>
+    <select id="categoria">
+        <option value="tecnologia">Tecnología</option>
+        <option value="ropa">Ropa</option>
+        <option value="hogar">Hogar</option>
+        <option value="deportes">Deportes</option>
+        <option value="general">General</option>
+    </select>
+
+    <button id="consultar" type="button">
+        Consultar categoría
+    </button>
+
+    <p id="estado" role="status">Selecciona una categoría.</p>
+    <section id="resultado" aria-live="polite"></section>
+</main>
+
+<script>
+    const API = "/api/productos/categorias";
+
+    const selector = document.getElementById("categoria");
+    const boton = document.getElementById("consultar");
+    const estado = document.getElementById("estado");
+    const resultado = document.getElementById("resultado");
+
+    async function consultarCategoria() {
+        const nombre = selector.value;
+
+        boton.disabled = true;
+        estado.textContent = "Consultando el backend...";
+        resultado.replaceChildren();
+
+        try {
+            const respuesta = await fetch(
+                `${API}/${encodeURIComponent(nombre)}/presentacion`
+            );
+
+            if (!respuesta.ok) {
+                throw new Error(`Error HTTP ${respuesta.status}`);
+            }
+
+            const categoria = await respuesta.json();
+
+            // Se leen los valores que realmente devuelve Spring Boot.
+            const nombreCategoria = categoria.nombre;
+            const iconoCategoria = categoria.icono;
+            const colorCategoria = categoria.color;
+
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "tarjeta";
+            tarjeta.style.setProperty("--color", colorCategoria);
+
+            const icono = document.createElement("div");
+            icono.className = "icono";
+            icono.textContent = iconoCategoria;
+
+            const titulo = document.createElement("div");
+            titulo.className = "nombre";
+            titulo.textContent = nombreCategoria;
+
+            const detalle = document.createElement("p");
+            detalle.textContent = "Color recibido: " + colorCategoria;
+
+            const muestra = document.createElement("span");
+            muestra.className = "muestra";
+            muestra.setAttribute("aria-label", "Muestra del color");
+
+            tarjeta.append(icono, titulo, detalle, muestra);
+            resultado.appendChild(tarjeta);
+
+            const jsonTitulo = document.createElement("h3");
+            jsonTitulo.textContent = "Respuesta JSON del backend";
+
+            const json = document.createElement("pre");
+            json.textContent = JSON.stringify(categoria, null, 2);
+
+            resultado.append(jsonTitulo, json);
+            estado.textContent = "Categoría consultada correctamente.";
+
+        } catch (error) {
+            estado.textContent =
+                "No se pudo consultar la API: " + error.message;
+
+            resultado.textContent =
+                "Verifica que Spring Boot esté iniciado y que el endpoint responda.";
+        } finally {
+            boton.disabled = false;
+        }
+    }
+
+    boton.addEventListener("click", consultarCategoria);
+    selector.addEventListener("change", consultarCategoria);
+
+    // Consulta la categoría inicial al cargar la página.
+    consultarCategoria();
+</script>
+</body>
+</html>

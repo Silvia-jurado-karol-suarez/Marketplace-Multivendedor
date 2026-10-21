@@ -1,58 +1,83 @@
-document
-    .getElementById("formRegistro")
-    .addEventListener("submit", async function(event) {
 
-        event.preventDefault();
+const formularioRegistro = document.getElementById("formRegistro");
+const mensajeRegistro = document.getElementById("mensaje");
+const botonRegistro = document.getElementById("btnRegistro");
+const campoFechaNacimiento = document.getElementById("fechaNacimiento");
 
-        const nombre =
-            document.getElementById("nombre").value;
+document.getElementById("anioActual").textContent =
+    new Date().getFullYear();
 
-        const correo =
-            document.getElementById("correo").value;
+// Evitar fechas de nacimiento futuras.
+campoFechaNacimiento.max = new Date().toISOString().split("T")[0];
 
-        const password =
-            document.getElementById("password").value;
+function mostrarMensajeRegistro(texto, tipo) {
+    mensajeRegistro.textContent = texto;
+    mensajeRegistro.className =
+        `auth-message auth-field-full auth-message-${tipo}`;
+}
 
+formularioRegistro.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-        const datos = {
+    if (!formularioRegistro.reportValidity()) {
+        return;
+    }
 
-            nombre: nombre,
-            correo: correo,
-            password: password
+    const datos = {
+        nombre: document.getElementById("nombre").value.trim(),
+        apellido: document.getElementById("apellido").value.trim(),
+        correo: document.getElementById("correo").value.trim(),
+        celular: document.getElementById("celular").value.trim(),
+        password: document.getElementById("password").value,
+        fechaNacimiento: campoFechaNacimiento.value
+    };
 
-        };
+    if (new Date(datos.fechaNacimiento + "T00:00:00") > new Date()) {
+        mostrarMensajeRegistro(
+            "La fecha de nacimiento no puede ser futura.",
+            "error"
+        );
+        return;
+    }
 
+    botonRegistro.disabled = true;
+    botonRegistro.textContent = "Creando cuenta...";
 
-        try {
+    try {
+        const respuesta = await fetch("/auth/registro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain, application/json"
+            },
+            body: JSON.stringify(datos)
+        });
 
-            const respuesta = await fetch(
-                "/auth/registro",
-                {
-                    method: "POST",
+        const resultado = await respuesta.text();
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify(datos)
-                }
+        if (respuesta.ok) {
+            mostrarMensajeRegistro(
+                resultado || "¡Tu cuenta se creó correctamente!",
+                "success"
             );
 
-
-            const resultado =
-                await respuesta.text();
-
-
-            document.getElementById("mensaje")
-                .innerHTML = resultado;
-
-
-        } catch (error) {
-
-            document.getElementById("mensaje")
-                .innerHTML =
-                "No fue posible conectar con el servidor.";
-
+            formularioRegistro.reset();
+            campoFechaNacimiento.max =
+                new Date().toISOString().split("T")[0];
+        } else {
+            mostrarMensajeRegistro(
+                resultado || "No fue posible completar el registro.",
+                "error"
+            );
         }
-
-    });
+    } catch (error) {
+        mostrarMensajeRegistro(
+            "No fue posible conectar con el servidor. Verifica que la aplicación esté funcionando.",
+            "error"
+        );
+    } finally {
+        botonRegistro.disabled = false;
+        botonRegistro.innerHTML =
+            'Crear mi cuenta <span aria-hidden="true">→</span>';
+    }
+});

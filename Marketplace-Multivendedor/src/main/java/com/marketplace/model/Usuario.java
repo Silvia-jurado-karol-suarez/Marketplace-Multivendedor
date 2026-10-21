@@ -1,4 +1,7 @@
+
 package com.marketplace.model;
+
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,13 +13,20 @@ public class Usuario {
     private String id;
 
     private String nombre;
+    private String apellido;
     private String correo;
+    private String celular;
     private String password;
+    private LocalDate fechaNacimiento;
 
     public Usuario() {
     }
 
-    public Usuario(String id, String nombre, String correo, String password) {
+    public Usuario(
+            String id,
+            String nombre,
+            String correo,
+            String password) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
@@ -39,6 +49,14 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
     public String getCorreo() {
         return correo;
     }
@@ -47,11 +65,27 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 }

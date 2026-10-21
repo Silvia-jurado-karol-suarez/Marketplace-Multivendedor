@@ -1,318 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Marketplace Multivendedor</title>
-
-    <link rel="stylesheet" href="/css/estilos.css">
+    <meta name="description" content="Descubre productos de diferentes vendedores en un solo lugar.">
+    <title>MarketPlace | Compra fácil, encuentra más</title>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
-
 <body>
+<header class="site-header">
+    <div class="header-main container">
+        <a class="brand" href="/index.html" aria-label="MarketPlace, inicio">
+            <span class="brand-mark">M</span><span>market<span class="brand-accent">place</span></span>
+        </a>
 
-<header class="header-principal">
+        <form class="search-form" id="formBusqueda" role="search">
+            <label class="sr-only" for="busqueda">Buscar productos</label>
+            <input id="busqueda" type="search" placeholder="¿Qué estás buscando hoy?" autocomplete="off">
+            <button type="submit" aria-label="Buscar">⌕</button>
+        </form>
 
-    <div class="logo">
-        <span class="logo-icon">M</span>
-        <span>MarketPlace</span>
+        <nav class="header-actions" aria-label="Navegación principal">
+            <a class="nav-link" href="#categorias">Categorías</a>
+            <a class="nav-link" href="#productos">Explorar</a>
+            <a class="nav-login" href="/login.html">Iniciar sesión</a>
+            <a class="nav-register" href="/registro.html">Crear cuenta</a>
+        </nav>
     </div>
 
-    <nav class="nav-principal">
-
-        <a href="/index.html" class="activo">
-            Inicio
-        </a>
-
-        <a href="/login.html">
-            Iniciar sesión
-        </a>
-
-        <a href="/registro.html" class="nav-registro">
-            Registrarse
-        </a>
-
-    </nav>
-
+    <div class="benefit-bar">
+        <div class="container benefit-items">
+            <span>✓ Variedad de vendedores</span>
+            <span>✓ Compra en un solo lugar</span>
+            <span>✓ Productos para cada día</span>
+        </div>
+    </div>
 </header>
 
-
 <main>
-
-    <!-- HERO -->
-
     <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <span class="eyebrow"><span class="eyebrow-dot"></span> TU PRÓXIMO DESCUBRIMIENTO EMPIEZA AQUÍ</span>
+                <h1>Encuentra eso que<br><span>estabas buscando.</span></h1>
+                <p>Explora productos de diferentes vendedores, compara opciones y encuentra tus favoritos en un solo lugar.</p>
 
-        <div class="hero-contenido">
-
-            <div class="hero-texto">
-
-                <span class="etiqueta">
-                    MARKETPLACE MULTIVENDEDOR
-                </span>
-
-                <h1>
-                    Compra y vende
-                    <span>en un solo lugar</span>
-                </h1>
-
-                <p>
-                    Una plataforma donde diferentes vendedores pueden
-                    ofrecer sus productos y los clientes pueden comprar,
-                    realizar pedidos y gestionar sus pagos y envíos.
-                </p>
-
-                <div class="hero-botones">
-
-                    <a href="/login.html" class="btn btn-principal">
-                        Iniciar sesión
-                    </a>
-
-                    <a href="/registro.html" class="btn btn-secundario">
-                        Crear cuenta
-                    </a>
-
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#productos">Explorar productos <span aria-hidden="true">→</span></a>
+                    <a class="button button-light" href="/registro.html">Vender en MarketPlace</a>
                 </div>
 
+                <div class="hero-note">
+                    <span class="avatar-stack" aria-hidden="true"><i>✦</i><i>✓</i><i>♡</i></span>
+                    <span>Un solo lugar, muchas posibilidades.</span>
+                </div>
             </div>
 
-
-            <div class="hero-card">
-
-                <div class="card-header">
-
-                    <span>Marketplace</span>
-
-                    <span class="estado">
-                        ● Activo
-                    </span>
-
+            <div class="hero-visual" aria-label="Selección de productos">
+                <div class="visual-glow"></div>
+                <div class="floating-card floating-card-top">
+                    <span class="float-icon">✦</span>
+                    <div><strong>Nuevos hallazgos</strong><small>Descubre algo diferente</small></div>
                 </div>
 
-                <div class="estadistica-principal">
-
-                    <span>Productos disponibles</span>
-
-                    <strong>+100</strong>
-
+                <div class="hero-product-art">
+                    <div class="art-circle"></div>
+                    <div class="art-bag">
+                        <div class="bag-handle"></div>
+                        <div class="bag-front"><span>m.</span></div>
+                    </div>
+                    <div class="art-orbit orbit-one"></div>
+                    <div class="art-orbit orbit-two"></div>
+                    <span class="art-spark spark-one">✳</span>
+                    <span class="art-spark spark-two">✦</span>
                 </div>
 
-                <div class="mini-estadisticas">
-
-                    <div>
-                        <strong>+20</strong>
-                        <span>Vendedores</span>
-                    </div>
-
-                    <div>
-                        <strong>+500</strong>
-                        <span>Pedidos</span>
-                    </div>
-
-                    <div>
-                        <strong>100%</strong>
-                        <span>Online</span>
-                    </div>
-
+                <div class="floating-card floating-card-bottom">
+                    <span class="float-icon heart">♡</span>
+                    <div><strong>Tu próxima compra</strong><small>Puede estar aquí</small></div>
                 </div>
-
             </div>
-
         </div>
-
     </section>
 
-
-    <!-- CARACTERÍSTICAS -->
-
-    <section class="caracteristicas">
-
-        <div class="seccion-titulo">
-
-            <span>PLATAFORMA</span>
-
-            <h2>
-                Todo lo necesario para comprar
-            </h2>
-
-            <p>
-                El Marketplace integra las principales funciones
-                necesarias para gestionar productos, pedidos,
-                pagos y envíos.
-            </p>
-
+    <section class="category-section container" id="categorias">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">EXPLORA POR CATEGORÍA</span>
+                <h2>¿Qué te gustaría encontrar?</h2>
+            </div>
+            <p>Encuentra rápidamente lo que buscas.</p>
         </div>
 
-
-        <div class="tarjetas">
-
-            <article class="tarjeta">
-
-                <div class="icono">
-                    🛍️
-                </div>
-
-                <h3>
-                    Productos
-                </h3>
-
-                <p>
-                    Consulta productos ofrecidos por diferentes
-                    vendedores desde un único catálogo.
-                </p>
-
-            </article>
-
-
-            <article class="tarjeta">
-
-                <div class="icono">
-                    📦
-                </div>
-
-                <h3>
-                    Pedidos
-                </h3>
-
-                <p>
-                    Crea y administra pedidos con los productos
-                    seleccionados.
-                </p>
-
-            </article>
-
-
-            <article class="tarjeta">
-
-                <div class="icono">
-                    💳
-                </div>
-
-                <h3>
-                    Pagos
-                </h3>
-
-                <p>
-                    Selecciona diferentes métodos de pago para
-                    completar tus compras.
-                </p>
-
-            </article>
-
-
-            <article class="tarjeta">
-
-                <div class="icono">
-                    🚚
-                </div>
-
-                <h3>
-                    Envíos
-                </h3>
-
-                <p>
-                    Selecciona el tipo de envío y consulta
-                    la información correspondiente.
-                </p>
-
-            </article>
-
+        <div class="category-grid">
+            <button class="category-tile selected" type="button" data-categoria="todas">
+                <span class="category-icon all-icon">✳</span><strong>Todo</strong>
+            </button>
+            <button class="category-tile" type="button" data-categoria="tecnologia">
+                <span class="category-icon tech-icon">⌁</span><strong>Tecnología</strong>
+            </button>
+            <button class="category-tile" type="button" data-categoria="hogar">
+                <span class="category-icon home-icon">⌂</span><strong>Hogar</strong>
+            </button>
+            <button class="category-tile" type="button" data-categoria="moda">
+                <span class="category-icon fashion-icon">◇</span><strong>Moda</strong>
+            </button>
+            <button class="category-tile" type="button" data-categoria="deportes">
+                <span class="category-icon sport-icon">↗</span><strong>Deportes</strong>
+            </button>
+            <button class="category-tile" type="button" data-categoria="otros">
+                <span class="category-icon other-icon">✦</span><strong>Otros</strong>
+            </button>
         </div>
-
     </section>
 
+    <section class="products-section" id="productos">
+        <div class="container">
+            <div class="section-heading products-heading">
+                <div>
+                    <span class="section-kicker">SELECCIÓN PARA TI</span>
+                    <h2>Productos disponibles</h2>
+                    <p class="section-description">Explora los productos publicados por nuestros vendedores.</p>
+                </div>
 
-    <!-- PATRONES -->
+                <div class="product-tools">
+                    <label class="sr-only" for="ordenProductos">Ordenar productos</label>
+                    <select id="ordenProductos">
+                        <option value="relevancia">Orden recomendado</option>
+                        <option value="precio-asc">Precio: menor a mayor</option>
+                        <option value="precio-desc">Precio: mayor a menor</option>
+                        <option value="nombre">Nombre: A-Z</option>
+                    </select>
+                </div>
+            </div>
 
-    <section class="patrones">
+            <div class="catalog-status" id="estadoCatalogo" role="status">Cargando productos...</div>
+            <div class="product-grid" id="listaProductos" aria-live="polite"></div>
 
-        <div class="seccion-titulo">
-
-            <span>ARQUITECTURA</span>
-
-            <h2>
-                Patrones de diseño
-            </h2>
-
-            <p>
-                El proyecto utiliza diferentes patrones para
-                organizar la creación y funcionamiento de sus componentes.
-            </p>
-
+            <div class="empty-state hidden" id="sinProductos">
+                <span>⌕</span>
+                <h3>No encontramos productos</h3>
+                <p>Prueba con otra búsqueda o selecciona una categoría diferente.</p>
+                <button class="button button-light" id="limpiarFiltros" type="button">Limpiar filtros</button>
+            </div>
         </div>
-
-
-        <div class="patrones-grid">
-
-            <div class="patron-card">
-                <span>01</span>
-                <h3>Singleton</h3>
-                <p>Configuración general del Marketplace.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>02</span>
-                <h3>Factory Method</h3>
-                <p>Creación de diferentes métodos de pago.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>03</span>
-                <h3>Abstract Factory</h3>
-                <p>Creación de familias de elementos de envío.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>04</span>
-                <h3>Builder</h3>
-                <p>Construcción de pedidos.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>05</span>
-                <h3>Prototype</h3>
-                <p>Clonación de productos existentes.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>06</span>
-                <h3>Adapter</h3>
-                <p>Adaptación de servicios externos de pago.</p>
-            </div>
-
-            <div class="patron-card">
-                <span>07</span>
-                <h3>Bridge</h3>
-                <p>Separación entre pedidos y canales de notificación.</p>
-            </div>
-
-        </div>
-
     </section>
 
+    <section class="seller-banner">
+        <div class="container seller-banner-inner">
+            <div>
+                <span class="section-kicker">¿TIENES ALGO PARA OFRECER?</span>
+                <h2>Tu negocio también<br>puede crecer aquí.</h2>
+                <p>Llega a nuevos clientes y muestra tus productos en nuestra comunidad de vendedores.</p>
+                <a class="button button-white" href="/registro.html">Empieza a vender <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="seller-illustration" aria-hidden="true">
+                <div class="seller-circle"><span>m.</span></div>
+                <span class="seller-star star-a">✦</span>
+                <span class="seller-star star-b">✳</span>
+                <span class="seller-tag">Tu tienda<br>empieza aquí</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section container">
+        <div class="trust-item">
+            <span>◎</span>
+            <div><strong>Todo en un lugar</strong><p>Distintos vendedores, muchas opciones.</p></div>
+        </div>
+        <div class="trust-item">
+            <span>♡</span>
+            <div><strong>Descubre tus favoritos</strong><p>Explora artículos para tu día a día.</p></div>
+        </div>
+        <div class="trust-item">
+            <span>↗</span>
+            <div><strong>Apoya a vendedores</strong><p>Encuentra nuevas tiendas y propuestas.</p></div>
+        </div>
+    </section>
 </main>
 
-
-<footer>
-
-    <div class="footer-contenido">
-
-        <div>
-            <strong>Marketplace Multivendedor</strong>
-
-            <p>
-                Plataforma de comercio electrónico.
-            </p>
+<footer class="site-footer">
+    <div class="container footer-top">
+        <a class="brand footer-brand" href="/index.html">
+            <span class="brand-mark">M</span><span>market<span class="brand-accent">place</span></span>
+        </a>
+        <p>Encuentra más. Descubre algo nuevo.</p>
+        <div class="footer-links">
+            <a href="/login.html">Iniciar sesión</a>
+            <a href="/registro.html">Crear cuenta</a>
         </div>
-
-        <div>
-            <span>Proyecto de Patrones de Software</span>
-        </div>
-
     </div>
-
+    <div class="container footer-bottom">
+        <span>© <span id="anioActual"></span> MarketPlace</span>
+        <span>Una plataforma para comprar y vender.</span>
+    </div>
 </footer>
 
+<script src="/js/index.js" defer></script>
 </body>
 </html>

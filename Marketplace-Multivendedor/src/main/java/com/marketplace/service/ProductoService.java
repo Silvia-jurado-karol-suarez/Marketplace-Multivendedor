@@ -8,7 +8,7 @@ import com.marketplace.model.Producto;
 import com.marketplace.repository.ProductoRepository;
 
 @Service
-public class ProductoService {
+public class ProductoService implements ProductoOperations {
 
     private final ProductoRepository productoRepository;
 

@@ -1,89 +1,110 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#176b50">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión | Marketplace</title>
 
-    <title>Iniciar sesión</title>
-
-    <link rel="stylesheet"
-          href="css/estilos.css">
-
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/login.js" defer></script>
 </head>
 
+<body class="auth-page">
 
-<body>
-
-<header>
-
-    <div class="logo">
-        Marketplace
-    </div>
-
-    <nav>
-
-        <a href="index.html">
-            Inicio
+    <header class="auth-header">
+        <a class="auth-logo" href="/index.html">
+            <span class="auth-logo-icon">M</span>
+            <span>Market<span class="auth-logo-highlight">Place</span></span>
         </a>
 
-        <a href="registro.html">
-            Registrarse
-        </a>
+        <nav class="auth-nav">
+            <a href="/index.html">Inicio</a>
+            <span>¿Eres nuevo?</span>
+            <a class="auth-nav-button" href="/registro.html">Crear cuenta</a>
+        </nav>
+    </header>
 
-    </nav>
+    <main class="auth-main auth-main-login">
 
-</header>
+        <section class="auth-card auth-card-login">
 
+            <div class="auth-login-symbol">
+                <span>↗</span>
+            </div>
 
-<main>
+            <div class="auth-intro">
+                <span class="auth-eyebrow">Qué bueno tenerte de vuelta</span>
+                <h1>Iniciar sesión</h1>
+                <p>Ingresa tus datos para continuar en MarketPlace.</p>
+            </div>
 
-<section class="inicio">
+            <form id="formLogin" class="auth-form auth-form-login">
 
-    <h1>
-        Iniciar sesión
-    </h1>
+                <div class="auth-field auth-field-full">
+                    <label for="correo">Correo electrónico</label>
+                    <input
+                        type="email"
+                        id="correo"
+                        name="correo"
+                        placeholder="ejemplo@correo.com"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
 
+                <div class="auth-field auth-field-full">
+                    <label for="password">Contraseña</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Ingresa tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
 
-    <form id="formLogin">
+                <div class="auth-field-full">
+                    <button type="submit" class="auth-submit" id="btnLogin">
+                        Iniciar sesión
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
 
-        <input
-            type="email"
-            id="correo"
-            placeholder="Correo electrónico"
-            required
-        >
+                <p id="mensaje" class="auth-message auth-field-full"
+                   role="status" aria-live="polite"></p>
+            </form>
 
-        <br><br>
+            <div class="auth-bottom-link">
+                ¿Todavía no tienes cuenta?
+                <a href="/registro.html">Regístrate gratis</a>
+            </div>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Contraseña"
-            required
-        >
+        </section>
 
-        <br><br>
+        <aside class="auth-side auth-side-login">
+            <div class="auth-side-decoration decoration-one"></div>
+            <div class="auth-side-decoration decoration-two"></div>
 
-        <button type="submit" class="btn">
-            Iniciar sesión
-        </button>
+            <span class="auth-side-icon">✦</span>
+            <h2>Tu próxima gran compra empieza aquí.</h2>
+            <p>Entra a tu cuenta y continúa descubriendo todo lo que nuestra comunidad tiene para ofrecerte.</p>
 
-    </form>
+            <div class="auth-side-points">
+                <div><span>✓</span> Accede a tu cuenta</div>
+                <div><span>✓</span> Explora el catálogo</div>
+                <div><span>✓</span> Descubre nuevos productos</div>
+            </div>
+        </aside>
 
+    </main>
 
-    <p id="mensaje"></p>
-
-</section>
-
-</main>
-
-
-<script src="js/login.js"></script>
+    <footer class="auth-footer">
+        © <span id="anioActual"></span> MarketPlace. Todos los derechos reservados.
+    </footer>
 
 </body>
-
 </html>
