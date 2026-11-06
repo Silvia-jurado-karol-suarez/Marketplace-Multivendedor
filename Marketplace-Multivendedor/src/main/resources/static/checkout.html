@@ -387,7 +387,74 @@
         </form>
         <div id="resultadoProxy" class="resultado" aria-live="polite">El resultado de la consulta aparecerá aquí.</div>
     </section>
+<!-- CHAIN OF RESPONSIBILITY -->
+<section id="pruebaChain" class="market-section">
 
+    <div class="section-heading">
+        <div>
+            <span class="etiqueta">CHAIN OF RESPONSIBILITY</span>
+            <h2>Verificar disponibilidad</h2>
+            <p>
+                Selecciona un producto y comprueba si hay
+                existencias suficientes antes de comprar.
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="productoValidacion">
+            Seleccionar producto
+        </label>
+
+        <select id="productoValidacion" required>
+            <option value="">Cargando productos...</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="stockDisponible">
+            Stock disponible
+        </label>
+
+        <input
+            type="number"
+            id="stockDisponible"
+            readonly
+            placeholder="Se carga automáticamente">
+    </div>
+
+    <div class="form-group">
+        <label for="cantidadSolicitada">
+            Cantidad que deseas comprar
+        </label>
+
+        <input
+            type="number"
+            id="cantidadSolicitada"
+            min="1"
+            value="1"
+            required>
+    </div>
+
+    <button
+        type="button"
+        id="btnValidarCompra"
+        class="btn btn-principal">
+
+        Verificar disponibilidad
+
+    </button>
+
+    <div
+        id="resultadoChain"
+        class="resultado"
+        aria-live="polite">
+
+        Selecciona un producto para consultar sus existencias.
+
+    </div>
+
+</section>
 </main>
 
 <footer>
@@ -399,6 +466,6 @@
 
 <script src="/js/marketplace.js"></script>
 <script src="/js/marketplace-persistencia.js"></script>
-
+<script src="/js/validacion-compra.js"></script>
 </body>
 </html>
