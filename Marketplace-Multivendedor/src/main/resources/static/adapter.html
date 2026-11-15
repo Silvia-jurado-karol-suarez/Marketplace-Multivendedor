@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Adapter - Marketplace</title>
+    <link rel="stylesheet" href="css/adapter.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Patrón Adapter</h1>
+        <p>Integración de pasarelas externas de pago</p>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="introduccion">
+            <h2>Demostración del patrón Adapter</h2>
+            <p>
+                El adaptador permite que el Marketplace utilice
+                un servicio externo de pagos con una interfaz diferente.
+            </p>
+        </section>
+
+        <section class="pago">
+            <h2>Simulación de pago</h2>
+
+            <label for="monto">Ingrese el monto en pesos colombianos:</label>
+
+            <input
+                type="number"
+                id="monto"
+                placeholder="Ejemplo: 150000"
+                min="1"
+                step="1"
+            >
+
+            <button id="btnProcesar" onclick="procesarPago()">
+                Procesar pago
+            </button>
+
+            <p class="aviso">
+                Esta demostración no realiza transacciones reales.
+            </p>
+        </section>
+
+        <section class="flujo">
+            <h2>Funcionamiento del Adapter</h2>
+
+            <div class="flujo-contenedores">
+
+                <article class="tarjeta" id="marketplace">
+                    <span>01</span>
+                    <h3>Marketplace</h3>
+                    <p>Solicita procesar el pago.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <div class="flecha">→</div>
+
+                <article class="tarjeta" id="adaptador">
+                    <span>02</span>
+                    <h3>Adapter</h3>
+                    <p>Adapta la solicitud.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <div class="flecha">→</div>
+
+                <article class="tarjeta" id="pasarela">
+                    <span>03</span>
+                    <h3>Pasarela externa</h3>
+                    <p>Recibe la operación.</p>
+                    <small>Pendiente</small>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="resultado">
+            <h2>Resultado de la operación</h2>
+            <p id="mensaje">
+                Ingresa un monto para comenzar la demostración.
+            </p>
+
+            <div id="detalle"></div>
+        </section>
+
+    </main>
+
+    <script src="js/adapter.js"></script>
+</body>
+</html>

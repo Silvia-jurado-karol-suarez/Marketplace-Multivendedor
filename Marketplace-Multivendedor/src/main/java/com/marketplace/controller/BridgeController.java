@@ -1,9 +1,7 @@
+
 package com.marketplace.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.marketplace.bridge.CanalNotificacion;
 import com.marketplace.bridge.EmailNotificacion;
@@ -11,50 +9,46 @@ import com.marketplace.bridge.SMSNotificacion;
 import com.marketplace.bridge.Notificacion;
 import com.marketplace.bridge.NotificacionPedido;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/bridge")
 public class BridgeController {
 
-    @GetMapping("/notificar")
-    public String notificar(
+    @PostMapping("/notificar")
+    public Map<String, Object> notificar(
             @RequestParam String canal) {
+
+        Map<String, Object> respuesta = new LinkedHashMap<>();
 
         CanalNotificacion canalSeleccionado;
 
-
         if (canal.equalsIgnoreCase("email")) {
-
-            canalSeleccionado =
-                    new EmailNotificacion();
+            canalSeleccionado = new EmailNotificacion();
 
         } else if (canal.equalsIgnoreCase("sms")) {
-
-            canalSeleccionado =
-                    new SMSNotificacion();
+            canalSeleccionado = new SMSNotificacion();
 
         } else {
-
-            return "Canal no disponible.";
+            respuesta.put("estado", "Error");
+            respuesta.put("mensaje", "Canal no disponible.");
+            return respuesta;
         }
 
-
         Notificacion notificacion =
-                new NotificacionPedido(
-                        canalSeleccionado
-                );
+                new NotificacionPedido(canalSeleccionado);
 
-
-        notificacion.enviar(
+        String mensaje = notificacion.enviar(
                 "El pedido P001 fue creado correctamente."
         );
 
+        respuesta.put("patron", "Bridge");
+        respuesta.put("tipo", "Notificación de pedido");
+        respuesta.put("canal", canal);
+        respuesta.put("estado", "Notificación enviada");
+        respuesta.put("mensaje", mensaje);
 
-        return """
-                <strong>PATRÓN BRIDGE</strong>
-                <br><br>
-                Tipo: Notificación de pedido
-                <br>
-                Canal: """ + canal +
-                "<br>Estado: Notificación enviada.";
+        return respuesta;
     }
 }

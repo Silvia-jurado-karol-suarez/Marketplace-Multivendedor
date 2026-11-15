@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iterator | Marketplace Multivendedor</title>
+
+    <link rel="stylesheet" href="/css/iterator.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="/marketplace.html" class="brand">
+        <span class="brand-icon">M</span>
+        <span>Market<span>Place</span></span>
+    </a>
+
+    <nav>
+        <a href="/marketplace.html">Marketplace</a>
+        <a href="#catalogo">Catálogo</a>
+
+        <span class="status">
+            <i></i>
+            Iterator activo
+        </span>
+    </nav>
+
+</header>
+
+<main class="container">
+
+    <!-- PRESENTACIÓN -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="eyebrow">
+                PATRONES DE COMPORTAMIENTO · SEMANA 13
+            </span>
+
+            <h1>
+                Recorrido de <span>productos</span>
+            </h1>
+
+            <p>
+                El patrón Iterator permite recorrer los productos
+                del catálogo de forma secuencial, sin acceder
+                directamente a la estructura interna de la colección.
+            </p>
+
+            <button id="btnRecorrer" class="btn-primary">
+                ↻ Cargar catálogo
+            </button>
+
+        </div>
+
+        <div class="hero-symbol">
+
+            <div class="symbol-circle">↻</div>
+
+            <span>ITERATOR</span>
+
+            <small>Recorrido secuencial</small>
+
+        </div>
+
+    </section>
+
+
+    <!-- INDICADORES -->
+
+    <section class="stats">
+
+        <article class="stat-card">
+
+            <div class="stat-icon green-icon">▦</div>
+
+            <div>
+                <span>Productos encontrados</span>
+                <h2 id="totalProductos">0</h2>
+            </div>
+
+        </article>
+
+        <article class="stat-card">
+
+            <div class="stat-icon green-icon">✓</div>
+
+            <div>
+                <span>Estado del patrón</span>
+                <h2 id="estadoPatron">Pendiente</h2>
+            </div>
+
+        </article>
+
+        <article class="stat-card">
+
+            <div class="stat-icon orange-icon">↻</div>
+
+            <div>
+                <span>Tipo de recorrido</span>
+                <h2>Secuencial</h2>
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- PRUEBA DEL ITERATOR -->
+
+    <section class="iterator-demo">
+
+        <div class="demo-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    DEMOSTRACIÓN DEL PATRÓN
+                </span>
+
+                <h2>Recorrido paso a paso</h2>
+
+                <p>
+                    Avanza por los productos para observar
+                    cómo funciona el iterador.
+                </p>
+
+            </div>
+
+            <span id="estadoRecorrido" class="estado-recorrido">
+                Esperando inicio
+            </span>
+
+        </div>
+
+
+        <!-- PROGRESO -->
+
+        <div class="progress-track">
+
+            <div id="barraProgreso" class="progress-fill"></div>
+
+        </div>
+
+        <div class="progress-labels">
+
+            <span>Inicio</span>
+
+            <strong id="textoProgreso">0 de 0 productos</strong>
+
+            <span>Final</span>
+
+        </div>
+
+
+        <div class="demo-content">
+
+
+            <!-- PRODUCTO ACTUAL -->
+
+            <article class="current-product">
+
+                <span class="product-number" id="posicionProducto">
+                    PRODUCTO 0
+                </span>
+
+                <h3 id="nombreActual">
+                    Sin iniciar
+                </h3>
+
+                <p id="descripcionActual">
+                    Carga el catálogo para comenzar el recorrido.
+                </p>
+
+                <div class="current-details">
+
+                    <span id="categoriaActual">
+                        Categoría: --
+                    </span>
+
+                    <span id="stockActual">
+                        Stock: --
+                    </span>
+
+                </div>
+
+                <h2 id="precioActual">
+                    $0
+                </h2>
+
+            </article>
+
+
+            <!-- OPERACIONES DEL ITERATOR -->
+
+            <aside class="iterator-info">
+
+                <h3>Operaciones del Iterator</h3>
+
+                <div class="operation">
+
+                    <code>haySiguiente()</code>
+
+                    <strong id="haySiguiente">--</strong>
+
+                    <small>
+                        Comprueba si quedan elementos.
+                    </small>
+
+                </div>
+
+                <div class="operation">
+
+                    <code>siguiente()</code>
+
+                    <strong id="siguienteEstado">Pendiente</strong>
+
+                    <small>
+                        Obtiene el próximo producto.
+                    </small>
+
+                </div>
+
+                <div class="operation">
+
+                    <code>posición</code>
+
+                    <strong id="posicionActual">0</strong>
+
+                    <small>
+                        Productos visitados.
+                    </small>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- BOTONES -->
+
+        <div class="demo-actions">
+
+            <button id="btnSiguiente" disabled>
+                Siguiente producto →
+            </button>
+
+            <button id="btnReiniciar" disabled>
+                ↻ Reiniciar recorrido
+            </button>
+
+        </div>
+
+
+        <!-- HISTORIAL -->
+
+        <div class="history-panel">
+
+            <h3>Historial del recorrido</h3>
+
+            <p>
+                Aquí aparecen los productos visitados por el iterador.
+            </p>
+
+            <ol id="historialRecorrido">
+
+                <li>
+                    Aún no se ha iniciado el recorrido.
+                </li>
+
+            </ol>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATÁLOGO COMPLETO -->
+
+    <section class="catalog-section" id="catalogo">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="eyebrow">
+                    RESULTADO DEL ITERATOR
+                </span>
+
+                <h2>Productos del catálogo</h2>
+
+                <p>
+                    Productos obtenidos desde la base de datos.
+                </p>
+
+            </div>
+
+            <span class="counter" id="contador">
+                0 productos
+            </span>
+
+        </div>
+
+
+        <div id="mensaje" class="message">
+
+            Presiona cargar catálogo para consultar los productos.
+
+        </div>
+
+
+        <div id="productosGrid" class="products-grid"></div>
+
+    </section>
+
+
+    <!-- EXPLICACIÓN -->
+
+    <section class="explanation">
+
+        <div class="explanation-icon">ⓘ</div>
+
+        <div>
+
+            <h3>¿Cómo funciona Iterator?</h3>
+
+            <p>
+                El catálogo proporciona un iterador que permite
+                recorrer sus productos uno por uno. El método
+                <strong>haySiguiente()</strong> comprueba si existen
+                más elementos y <strong>siguiente()</strong> obtiene
+                el próximo producto, sin que el controlador tenga
+                que administrar directamente las posiciones
+                de la colección.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <strong>Marketplace Multivendedor</strong>
+
+    <span>Proyecto de Patrones de Software</span>
+
+</footer>
+
+
+<script src="/js/iterator.js"></script>
+
+</body>
+</html>

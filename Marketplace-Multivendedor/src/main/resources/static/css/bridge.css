@@ -1,0 +1,183 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fbfaf7;
+    color: #20251f;
+}
+
+.encabezado {
+    background: #315c43;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+.encabezado h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.encabezado p {
+    color: #e8eee7;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+.introduccion,
+.configuracion,
+.flujo,
+.resultado {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e2da;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #315c43;
+    margin-bottom: 15px;
+}
+
+.introduccion p {
+    line-height: 1.6;
+}
+
+.configuracion label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.configuracion select {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    background: white;
+}
+
+button {
+    background: #315c43;
+    color: white;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #234632;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.aviso {
+    margin-top: 15px;
+    color: #777;
+    font-size: 13px;
+}
+
+.componentes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.tarjeta {
+    flex: 1;
+    background: #e8eee7;
+    border: 2px solid transparent;
+    padding: 25px 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.4s ease;
+}
+
+.tarjeta span {
+    display: inline-block;
+    color: #315c43;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.tarjeta h3 {
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    font-size: 13px;
+    min-height: 35px;
+    line-height: 1.4;
+}
+
+.tarjeta small {
+    display: inline-block;
+    margin-top: 12px;
+    color: #777;
+    font-weight: bold;
+}
+
+.tarjeta.activo {
+    background: #fff0d9;
+    border-color: #e8a65b;
+    transform: translateY(-5px);
+}
+
+.tarjeta.completado {
+    background: #e1efe3;
+    border-color: #315c43;
+}
+
+.flecha {
+    color: #e8a65b;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.resultado p {
+    line-height: 1.6;
+}
+
+#detalle {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f5f4ef;
+    border-radius: 8px;
+    line-height: 1.8;
+}
+
+@media (max-width: 750px) {
+    .componentes {
+        flex-direction: column;
+    }
+
+    .tarjeta {
+        width: 100%;
+    }
+
+    .flecha {
+        transform: rotate(90deg);
+    }
+}

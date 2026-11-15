@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Mediator - Marketplace</title>
+    <link rel="stylesheet" href="css/mediator.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Patrón Mediator</h1>
+        <p>Coordinación del proceso de compra del Marketplace</p>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="introduccion">
+            <h2>Demostración del patrón</h2>
+            <p>
+                El Mediator coordina la comunicación entre los componentes
+                de compra sin que tengan que comunicarse directamente.
+            </p>
+
+            <button id="btnIniciar" onclick="iniciarCompra()">
+                Iniciar proceso de compra
+            </button>
+        </section>
+
+        <section class="flujo">
+            <h2>Componentes participantes</h2>
+
+            <div class="componentes">
+                <article class="componente" id="carrito">
+                    <span>01</span>
+                    <h3>Carrito</h3>
+                    <p>Confirma los productos.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <article class="componente" id="pedido">
+                    <span>02</span>
+                    <h3>Pedido</h3>
+                    <p>Registra el pedido.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <article class="componente" id="pago">
+                    <span>03</span>
+                    <h3>Pago</h3>
+                    <p>Simula el procesamiento del pago.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <article class="componente" id="envio">
+                    <span>04</span>
+                    <h3>Envío</h3>
+                    <p>Prepara el envío.</p>
+                    <small>Pendiente</small>
+                </article>
+            </div>
+        </section>
+
+        <section class="resultado">
+            <h2>Actividad del mediador</h2>
+            <p id="mensaje">Presiona el botón para iniciar la demostración.</p>
+            <div id="eventos" class="lista-eventos"></div>
+        </section>
+
+    </main>
+
+    <script src="js/mediator.js"></script>
+</body>
+</html>

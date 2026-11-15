@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Memento | Marketplace</title>
+    <link rel="stylesheet" href="/css/memento.css">
+</head>
+<body>
+
+    <header>
+        <h1>Marketplace Multivendedor</h1>
+        <p>Demostración del patrón de comportamiento Memento</p>
+    </header>
+
+    <main class="contenedor">
+        <h2>Restauración del estado de un pedido</h2>
+
+        <p class="descripcion">
+            Observa cómo el patrón Memento guarda el estado de un pedido,
+            permite modificarlo y recuperarlo posteriormente.
+        </p>
+
+        <button id="btnEjecutar" onclick="ejecutarMemento()">
+            Ejecutar demostración
+        </button>
+
+        <section class="estados">
+            <article class="tarjeta">
+                <h3>1. Estado original</h3>
+                <div id="original">Esperando demostración...</div>
+            </article>
+
+            <article class="tarjeta">
+                <h3>2. Estado modificado</h3>
+                <div id="modificado">Esperando demostración...</div>
+            </article>
+
+            <article class="tarjeta">
+                <h3>3. Estado restaurado</h3>
+                <div id="restaurado">Esperando demostración...</div>
+            </article>
+        </section>
+
+        <section class="eventos">
+            <h3>Registro de la demostración</h3>
+            <div id="mensaje">Aquí aparecerán los resultados.</div>
+        </section>
+    </main>
+
+    <script src="/js/memento.js"></script>
+</body>
+</html>

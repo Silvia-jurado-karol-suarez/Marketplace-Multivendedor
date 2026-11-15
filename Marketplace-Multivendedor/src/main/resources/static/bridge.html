@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Bridge - Marketplace</title>
+    <link rel="stylesheet" href="css/bridge.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <h1>Patrón Bridge</h1>
+        <p>Sistema de notificaciones del Marketplace</p>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="introduccion">
+            <h2>Demostración del patrón Bridge</h2>
+            <p>
+                Bridge permite separar el tipo de notificación
+                del canal utilizado para enviarla.
+            </p>
+        </section>
+
+        <section class="configuracion">
+            <h2>Enviar notificación</h2>
+
+            <label for="canal">Selecciona el canal:</label>
+
+            <select id="canal">
+                <option value="email">Correo electrónico</option>
+                <option value="sms">Mensaje SMS</option>
+            </select>
+
+            <button id="btnEnviar" onclick="enviarNotificacion()">
+                Enviar notificación
+            </button>
+
+            <p class="aviso">
+                Demostración académica: no se envían correos ni SMS reales.
+            </p>
+        </section>
+
+        <section class="flujo">
+            <h2>Funcionamiento del Bridge</h2>
+
+            <div class="componentes">
+
+                <article class="tarjeta" id="notificacion">
+                    <span>01</span>
+                    <h3>Notificación</h3>
+                    <p>Representa el aviso del pedido.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <div class="flecha">→</div>
+
+                <article class="tarjeta" id="canalVisual">
+                    <span>02</span>
+                    <h3>Canal</h3>
+                    <p>Selecciona el medio de comunicación.</p>
+                    <small>Pendiente</small>
+                </article>
+
+                <div class="flecha">→</div>
+
+                <article class="tarjeta" id="envio">
+                    <span>03</span>
+                    <h3>Resultado</h3>
+                    <p>Procesa la notificación.</p>
+                    <small>Pendiente</small>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="resultado">
+            <h2>Resultado de la notificación</h2>
+
+            <p id="mensaje">
+                Selecciona un canal para iniciar la demostración.
+            </p>
+
+            <div id="detalle"></div>
+        </section>
+
+    </main>
+
+    <script src="js/bridge.js"></script>
+
+</body>
+</html>

@@ -1,12 +1,12 @@
+
 package com.marketplace.bridge;
 
 public class SMSNotificacion implements CanalNotificacion {
 
     @Override
-    public void enviar(String mensaje) {
+    public String enviar(String mensaje) {
 
-        System.out.println(
-                "Enviando SMS: " + mensaje
-        );
+        return "Mensaje SMS: " + mensaje;
+
     }
 }

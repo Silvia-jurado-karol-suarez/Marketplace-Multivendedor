@@ -1,0 +1,128 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fbfaf7;
+    color: #20251f;
+}
+
+header {
+    background: #315c43;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+header p {
+    color: #e8eee7;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 1100px;
+    margin: 45px auto;
+    text-align: center;
+}
+
+.contenedor h2 {
+    color: #315c43;
+    margin-bottom: 15px;
+}
+
+.descripcion {
+    max-width: 700px;
+    margin: 0 auto 25px;
+    line-height: 1.6;
+    color: #555;
+}
+
+button {
+    background: #e8a65b;
+    color: #20251f;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d8913f;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.estados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+}
+
+.tarjeta {
+    background: white;
+    border: 1px solid #e2e5df;
+    border-top: 5px solid #315c43;
+    border-radius: 12px;
+    padding: 25px 18px;
+    min-height: 190px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.tarjeta h3 {
+    color: #315c43;
+    margin-bottom: 20px;
+}
+
+.tarjeta p {
+    margin: 12px 0;
+    color: #555;
+}
+
+.tarjeta strong {
+    color: #20251f;
+}
+
+.eventos {
+    background: #e8eee7;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.eventos h3 {
+    color: #315c43;
+    margin-bottom: 15px;
+}
+
+#mensaje {
+    line-height: 1.8;
+    color: #38463a;
+}
+
+@media (max-width: 750px) {
+    .estados {
+        grid-template-columns: 1fr;
+    }
+
+    .contenedor {
+        width: 94%;
+    }
+}
