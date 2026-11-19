@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patrón Observer | Marketplace</title>
+
+    <link rel="stylesheet" href="/css/observer.css">
+    <script src="/js/observer.js" defer></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">M</span>
+                <div>
+                    <h1>Marketplace</h1>
+                    <p>Multivendedor</p>
+                </div>
+            </div>
+
+            <a href="/" class="btn-volver">Volver al inicio</a>
+        </div>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="presentacion">
+            <span class="etiqueta">PATRÓN DE DISEÑO</span>
+            <h2>Observer</h2>
+            <p>
+                Sistema de notificaciones automáticas que informa
+                al cliente y al vendedor cuando cambia el estado
+                de un pedido mediante el patrón Observer.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="panel-titulo">
+                <div>
+                    <h3>Estado del sistema Observer</h3>
+                    <p>Observadores registrados en el backend.</p>
+                </div>
+
+                <span class="estado-conexion">
+                    Sistema Observer activo
+                </span>
+            </div>
+
+            <div class="tarjetas">
+
+                <article class="tarjeta">
+                    <h4>Observadores registrados</h4>
+                    <p id="cantidadObservadores">Consultando...</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h4>Suscriptores activos</h4>
+                    <div id="listaObservadores">
+                        Consultando observadores...
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-titulo">
+                <div>
+                    <h3>Gestión de pedidos</h3>
+                    <p>Selecciona un pedido y actualiza su estado.</p>
+                </div>
+            </div>
+
+            <div class="formulario">
+
+                <div class="campo">
+                    <label for="pedidoSelect">Seleccionar pedido</label>
+
+                    <select id="pedidoSelect">
+                        <option value="">Cargando pedidos...</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="nuevoEstado">Nuevo estado</label>
+
+                    <select id="nuevoEstado">
+                        <option value="PENDIENTE">Pendiente</option>
+                        <option value="EN PREPARACIÓN">En preparación</option>
+                        <option value="ENVIADO">Enviado</option>
+                        <option value="ENTREGADO">Entregado</option>
+                    </select>
+                </div>
+
+                <button id="btnActualizar" type="button">
+                    Actualizar pedido
+                </button>
+
+            </div>
+
+            <div id="mensaje" class="mensaje" aria-live="polite">
+                Selecciona un pedido para comenzar.
+            </div>
+
+            <div id="detallePedido"></div>
+        </section>
+
+        <section class="notificaciones">
+
+            <div class="seccion-titulo">
+                <h3>Observadores del sistema</h3>
+                <p>
+                    Cada observador recibe el evento cuando se modifica
+                    el estado de un pedido.
+                </p>
+            </div>
+
+            <div class="tarjetas">
+
+                <article class="tarjeta">
+                    <div class="icono">👤</div>
+                    <h4>Notificación al cliente</h4>
+                    <p>
+                        Recibe información sobre los cambios
+                        realizados en su pedido.
+                    </p>
+                    <span class="indicador">NotificacionCliente</span>
+                </article>
+
+                <article class="tarjeta">
+                    <div class="icono">🏪</div>
+                    <h4>Notificación al vendedor</h4>
+                    <p>
+                        Recibe información sobre las actualizaciones
+                        de los pedidos relacionados con sus productos.
+                    </p>
+                    <span class="indicador">NotificacionVendedor</span>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="resultado">
+            <h3>Resultado de la actualización</h3>
+
+            <div id="resultadoNotificaciones" class="resultado-contenido">
+                <p>
+                    Aquí aparecerá el resultado de la actualización
+                    del pedido.
+                </p>
+            </div>
+        </section>
+
+        <section class="resultado">
+
+            <div class="seccion-titulo">
+                <h3>Historial de notificaciones</h3>
+                <p>
+                    Eventos registrados por los observadores
+                    en el backend de Spring Boot.
+                </p>
+            </div>
+
+            <button id="btnConsultarEventos" type="button">
+                Consultar notificaciones
+            </button>
+
+            <div id="historialEventos" class="resultado-contenido">
+                <p>Presiona el botón para consultar los eventos.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>Marketplace Multivendedor | Patrón Observer</p>
+    </footer>
+
+</body>
+</html>

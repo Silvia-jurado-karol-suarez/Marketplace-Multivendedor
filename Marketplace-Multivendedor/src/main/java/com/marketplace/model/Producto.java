@@ -1,9 +1,11 @@
+
 package com.marketplace.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.marketplace.composite.ElementoCatalogo;
+import com.marketplace.visitor.Visitor;
 
 @Document(collection = "productos")
 public class Producto implements ElementoCatalogo, Cloneable {
@@ -18,11 +20,11 @@ public class Producto implements ElementoCatalogo, Cloneable {
     private String categoria;
     private Vendedor vendedor;
 
-    
+    // Constructor vacío
     public Producto() {
     }
 
-    
+    // Constructor completo
     public Producto(String id, String nombre, String descripcion,
                     double precio, int stock, String categoria,
                     Vendedor vendedor) {
@@ -116,7 +118,6 @@ public class Producto implements ElementoCatalogo, Cloneable {
     public Producto clone() {
 
         try {
-
             return (Producto) super.clone();
 
         } catch (CloneNotSupportedException e) {
@@ -126,5 +127,13 @@ public class Producto implements ElementoCatalogo, Cloneable {
                 e
             );
         }
+    }
+
+    // =========================
+    // MÉTODO DEL VISITOR
+    // =========================
+
+    public void accept(Visitor visitor) {
+        visitor.visitarProducto(this);
     }
 }

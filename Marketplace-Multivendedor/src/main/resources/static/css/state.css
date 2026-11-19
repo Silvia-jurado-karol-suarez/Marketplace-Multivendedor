@@ -1,0 +1,269 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f2fa;
+    color: #29243a;
+}
+
+.encabezado {
+    background: linear-gradient(135deg, #51258c, #7844bd);
+    color: white;
+    padding: 30px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.encabezado h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.encabezado p {
+    color: #e9ddfa;
+}
+
+.etiqueta {
+    background: #ffffff25;
+    padding: 12px 18px;
+    border-radius: 20px;
+}
+
+.contenedor {
+    max-width: 1150px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.panel {
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px #26134b12;
+    margin-bottom: 25px;
+}
+
+.panel h2 {
+    color: #51258c;
+    margin-bottom: 12px;
+}
+
+.descripcion {
+    color: #777184;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d8d0e6;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+}
+
+.estado-actual {
+    background: #f3edfc;
+    padding: 22px;
+    border-radius: 10px;
+    margin: 25px 0;
+    border-left: 5px solid #7540b5;
+}
+
+.estado-actual span {
+    color: #71677f;
+}
+
+.estado-actual h2 {
+    margin: 10px 0;
+    font-size: 25px;
+}
+
+.estado-actual p {
+    color: #71677f;
+    font-size: 13px;
+}
+
+.panel h3 {
+    margin: 22px 0 15px;
+}
+
+.flujo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0 30px;
+}
+
+.paso {
+    background: #eeeaf3;
+    color: #62586e;
+    border: 2px solid #ddd5e9;
+    border-radius: 10px;
+    padding: 14px 10px;
+    min-width: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.paso span {
+    background: #dcd4e8;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.paso.activo {
+    background: #e5f7eb;
+    border-color: #38a56a;
+    color: #17683d;
+}
+
+.paso.activo span {
+    background: #38a56a;
+    color: white;
+}
+
+.flecha {
+    color: #9876bd;
+    font-size: 23px;
+}
+
+.acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 13px 18px;
+    background: #6535a3;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background: #48217e;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background: #c7c1ce;
+    cursor: not-allowed;
+}
+
+.mensaje {
+    margin-top: 22px;
+    padding: 15px;
+    background: #f0edf5;
+    border-radius: 8px;
+    color: #62586e;
+}
+
+.mensaje.exito {
+    background: #e5f7eb;
+    color: #17683d;
+}
+
+.mensaje.error {
+    background: #fdeaea;
+    color: #a52e2e;
+}
+
+.btn-recargar {
+    margin-top: 18px;
+    background: #34303c;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #eee9f4;
+    font-size: 14px;
+}
+
+th {
+    background: #f2edf9;
+    color: #51258c;
+}
+
+.correcto {
+    color: #21834d;
+    font-weight: bold;
+}
+
+.rechazado {
+    color: #c23e3e;
+    font-weight: bold;
+}
+
+.nota {
+    background: #f3edfc;
+    border-left: 4px solid #7540b5;
+    padding: 17px;
+    margin-top: 22px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+    .encabezado {
+        padding: 25px 20px;
+    }
+
+    .encabezado h1 {
+        font-size: 23px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .paso {
+        min-width: 110px;
+    }
+
+    .flecha {
+        display: none;
+    }
+
+    .acciones button {
+        width: 100%;
+    }
+}

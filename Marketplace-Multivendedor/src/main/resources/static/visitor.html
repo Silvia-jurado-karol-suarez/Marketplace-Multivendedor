@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patrón Visitor - Marketplace</title>
+
+    <link rel="stylesheet" href="/css/visitor.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div>
+            <h1>Reportes del Marketplace</h1>
+            <p>Implementación del patrón de diseño Visitor</p>
+        </div>
+
+        <span class="etiqueta">Marketplace Multivendedor</span>
+    </header>
+
+    <main class="contenedor">
+
+        <!-- INTRODUCCIÓN -->
+
+        <section class="introduccion">
+            <div>
+                <h2>Panel de información</h2>
+                <p>
+                    Consulta los datos de productos, pedidos y vendedores
+                    mediante el patrón Visitor.
+                </p>
+            </div>
+
+            <button id="btnActualizar" onclick="cargarReporte()">
+                ↻ Actualizar reporte
+            </button>
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="estadisticas">
+
+            <article class="tarjeta">
+                <div class="icono productos">P</div>
+                <div>
+                    <p>Total de productos</p>
+                    <h2 id="totalProductos">0</h2>
+                </div>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono pedidos">O</div>
+                <div>
+                    <p>Total de pedidos</p>
+                    <h2 id="totalPedidos">0</h2>
+                </div>
+            </article>
+
+            <article class="tarjeta">
+                <div class="icono vendedores">V</div>
+                <div>
+                    <p>Total de vendedores</p>
+                    <h2 id="totalVendedores">0</h2>
+                </div>
+            </article>
+
+            <article class="tarjeta destacado">
+                <div class="icono elementos">T</div>
+                <div>
+                    <p>Total de elementos</p>
+                    <h2 id="totalElementos">0</h2>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- MENSAJE DE CONSULTA -->
+
+        <div id="mensaje" class="mensaje">
+            Cargando información del Marketplace...
+        </div>
+
+        <!-- RESULTADOS -->
+
+        <section class="panel">
+
+            <div class="titulo-panel">
+                <div>
+                    <h2>Resultados del visitante</h2>
+                    <p>
+                        Información obtenida de las colecciones de MongoDB
+                    </p>
+                </div>
+            </div>
+
+            <!-- FILTROS -->
+
+            <div class="filtros">
+
+                <button class="filtro activo" data-filtro="TODOS">
+                    Todos
+                </button>
+
+                <button class="filtro" data-filtro="PRODUCTO">
+                    Productos
+                </button>
+
+                <button class="filtro" data-filtro="PEDIDO">
+                    Pedidos
+                </button>
+
+                <button class="filtro" data-filtro="VENDEDOR">
+                    Vendedores
+                </button>
+
+            </div>
+
+            <!-- CONTENEDOR DE REPORTES -->
+
+            <div id="resultados" class="resultados">
+                <p class="vacio">Consultando reportes...</p>
+            </div>
+
+        </section>
+
+        <footer>
+            Marketplace Multivendedor | Patrón de diseño Visitor
+        </footer>
+
+    </main>
+
+    <script src="/js/visitor.js"></script>
+
+</body>
+</html>

@@ -3,46 +3,52 @@ package com.marketplace.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.marketplace.visitor.Visitor;
+
 @Document(collection = "vendedores")
 public class Vendedor {
-	
-	@Id
+
+    @Id
     private String id;
-	
-	 private String nombre;
-	    private String correo;
 
-	    public Vendedor() {
-	    }
+    private String nombre;
+    private String correo;
 
-	    public Vendedor(String id, String nombre, String correo) {
-	        this.id = id;
-	        this.nombre = nombre;
-	        this.correo = correo;
-	    }
+    public Vendedor() {
+    }
 
-		public String getId() {
-			return id;
-		}
+    public Vendedor(String id, String nombre, String correo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+    }
 
-		public void setId(String id) {
-			this.id = id;
-		}
+    public String getId() {
+        return id;
+    }
 
-		public String getNombre() {
-			return nombre;
-		}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
-		}
+    public String getNombre() {
+        return nombre;
+    }
 
-		public String getCorreo() {
-			return correo;
-		}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-		public void setCorreo(String correo) {
-			this.correo = correo;
-		}
-	
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    // Método del patrón Visitor
+    public void accept(Visitor visitor) {
+        visitor.visitarVendedor(this);
+    }
 }

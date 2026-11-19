@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón State - Marketplace</title>
+    <link rel="stylesheet" href="/css/state.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div>
+            <h1>Gestión de pedidos</h1>
+            <p>Implementación del patrón de diseño State</p>
+        </div>
+        <span class="etiqueta">Marketplace Multivendedor</span>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="panel">
+            <h2>Administración de estados</h2>
+            <p class="descripcion">
+                Selecciona un pedido para consultar su estado y realizar
+                las transiciones permitidas.
+            </p>
+
+            <label for="pedidoSelect">Seleccionar pedido</label>
+            <select id="pedidoSelect">
+                <option value="">Cargando pedidos...</option>
+            </select>
+
+            <div class="estado-actual">
+                <span>Estado actual del pedido</span>
+                <h2 id="estadoActual">Sin seleccionar</h2>
+                <p id="idPedido">Selecciona un pedido para comenzar.</p>
+            </div>
+
+            <h3>Flujo de estados</h3>
+
+            <div class="flujo">
+                <div class="paso" id="pasoPendiente">
+                    <span>1</span>
+                    <strong>Pendiente</strong>
+                </div>
+
+                <div class="flecha">→</div>
+
+                <div class="paso" id="pasoPreparacion">
+                    <span>2</span>
+                    <strong>En preparación</strong>
+                </div>
+
+                <div class="flecha">→</div>
+
+                <div class="paso" id="pasoEnviado">
+                    <span>3</span>
+                    <strong>Enviado</strong>
+                </div>
+
+                <div class="flecha">→</div>
+
+                <div class="paso" id="pasoEntregado">
+                    <span>4</span>
+                    <strong>Entregado</strong>
+                </div>
+            </div>
+
+            <h3>Acciones disponibles</h3>
+
+            <div class="acciones">
+                <button id="btnPreparar" onclick="cambiarEstado('EN PREPARACIÓN')">
+                    Iniciar preparación
+                </button>
+
+                <button id="btnEnviar" onclick="cambiarEstado('ENVIADO')">
+                    Enviar pedido
+                </button>
+
+                <button id="btnEntregar" onclick="cambiarEstado('ENTREGADO')">
+                    Marcar como entregado
+                </button>
+            </div>
+
+            <div id="mensaje" class="mensaje">
+                Selecciona un pedido para comenzar las pruebas.
+            </div>
+
+            <button class="btn-recargar" onclick="cargarPedidos()">
+                Actualizar pedidos
+            </button>
+        </section>
+
+        <section class="panel">
+            <h2>Pruebas del patrón State</h2>
+
+            <p class="descripcion">
+                Estas pruebas permiten comprobar las transiciones
+                permitidas y las restricciones definidas para cada estado.
+            </p>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prueba</th>
+                            <th>Transición</th>
+                            <th>Resultado esperado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>STATE-001</td>
+                            <td>Pendiente → Preparación</td>
+                            <td class="correcto">Permitida</td>
+                        </tr>
+
+                        <tr>
+                            <td>STATE-002</td>
+                            <td>Preparación → Enviado</td>
+                            <td class="correcto">Permitida</td>
+                        </tr>
+
+                        <tr>
+                            <td>STATE-003</td>
+                            <td>Enviado → Entregado</td>
+                            <td class="correcto">Permitida</td>
+                        </tr>
+
+                        <tr>
+                            <td>STATE-004</td>
+                            <td>Pendiente → Enviado</td>
+                            <td class="rechazado">Rechazada</td>
+                        </tr>
+
+                        <tr>
+                            <td>STATE-005</td>
+                            <td>Preparación → Entregado</td>
+                            <td class="rechazado">Rechazada</td>
+                        </tr>
+
+                        <tr>
+                            <td>STATE-006</td>
+                            <td>Entregado → Enviado</td>
+                            <td class="rechazado">Rechazada</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <strong>Funcionamiento:</strong>
+                El patrón State controla las transiciones de acuerdo
+                con el estado actual del pedido. El backend valida
+                cada cambio antes de guardarlo en MongoDB.
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/js/state.js"></script>
+</body>
+</html>

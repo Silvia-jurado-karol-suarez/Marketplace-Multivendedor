@@ -1,0 +1,556 @@
+
+/* =====================================
+   ESTILOS DEL PATRÓN OBSERVER
+   MARKETPLACE MULTIVENDEDOR
+===================================== */
+
+:root {
+    --verde: #315c43;
+    --verde-oscuro: #234632;
+    --verde-claro: #e8eee7;
+    --crema: #fbfaf7;
+    --naranja: #e8a65b;
+    --texto: #20251f;
+    --gris: #777d76;
+    --blanco: #ffffff;
+    --borde: #e3e7e0;
+}
+
+/* =====================================
+   CONFIGURACIÓN GENERAL
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+}
+
+/* =====================================
+   ENCABEZADO
+===================================== */
+
+.header {
+    background: var(--verde-oscuro);
+    padding: 18px 7%;
+    color: var(--blanco);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    background: var(--naranja);
+    color: var(--verde-oscuro);
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo h1 {
+    font-size: 20px;
+}
+
+.logo p {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 3px;
+}
+
+.btn-volver {
+    color: var(--blanco);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-volver:hover {
+    background: var(--naranja);
+    color: var(--verde-oscuro);
+}
+
+/* =====================================
+   CONTENIDO PRINCIPAL
+===================================== */
+
+.contenedor {
+    width: 86%;
+    max-width: 1200px;
+    margin: 45px auto;
+}
+
+.presentacion {
+    margin-bottom: 35px;
+}
+
+.etiqueta {
+    display: inline-block;
+    background: var(--verde-claro);
+    color: var(--verde);
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.presentacion h2 {
+    font-size: 38px;
+    color: var(--verde-oscuro);
+    margin: 16px 0 10px;
+}
+
+.presentacion p {
+    color: var(--gris);
+    line-height: 1.7;
+    max-width: 650px;
+}
+
+/* =====================================
+   PANEL PRINCIPAL
+===================================== */
+
+.panel {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 15px;
+    padding: 28px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 18px rgba(35,70,50,0.05);
+}
+
+.panel-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.panel-titulo h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 7px;
+}
+
+.panel-titulo p {
+    color: var(--gris);
+    font-size: 14px;
+}
+
+.estado-conexion {
+    background: var(--verde-claro);
+    color: var(--verde);
+    padding: 9px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* =====================================
+   FORMULARIO DE PEDIDOS
+===================================== */
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: end;
+    gap: 18px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.campo label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--verde-oscuro);
+}
+
+.campo select {
+    padding: 13px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: var(--crema);
+    color: var(--texto);
+    outline: none;
+    width: 100%;
+}
+
+.campo select:focus {
+    border-color: var(--verde);
+}
+
+#btnActualizar {
+    background: var(--verde);
+    color: var(--blanco);
+    border: none;
+    border-radius: 8px;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#btnActualizar:hover {
+    background: var(--verde-oscuro);
+}
+
+#btnActualizar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =====================================
+   MENSAJES DEL SISTEMA
+===================================== */
+
+.mensaje {
+    margin-top: 20px;
+    padding: 13px;
+    background: var(--verde-claro);
+    color: var(--verde-oscuro);
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.mensaje.error {
+    background: #fce8e6;
+    color: #a12d25;
+}
+
+/* =====================================
+   DETALLE DEL PEDIDO
+===================================== */
+
+#detallePedido {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--crema);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+
+#detallePedido h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 12px;
+}
+
+#detallePedido h4 {
+    color: var(--verde-oscuro);
+    margin-bottom: 8px;
+}
+
+#detallePedido p {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =====================================
+   SECCIÓN DE NOTIFICACIONES
+===================================== */
+
+.notificaciones {
+    margin-top: 40px;
+}
+
+.seccion-titulo {
+    margin-bottom: 20px;
+}
+
+.seccion-titulo h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 7px;
+}
+
+.seccion-titulo p {
+    color: var(--gris);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =====================================
+   TARJETAS
+===================================== */
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.tarjeta {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    padding: 25px;
+    border-radius: 13px;
+    transition: 0.3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 7px 20px rgba(35,70,50,0.08);
+}
+
+.icono {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.tarjeta h4 {
+    color: var(--verde-oscuro);
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    color: var(--gris);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.indicador {
+    display: inline-block;
+    margin-top: 17px;
+    padding: 6px 12px;
+    background: #fff1df;
+    color: #9a6022;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* =====================================
+   ESTADO DE LOS OBSERVADORES
+===================================== */
+
+#cantidadObservadores {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--verde);
+    margin-top: 12px;
+}
+
+#listaObservadores {
+    margin-top: 12px;
+}
+
+.observador-activo {
+    background: var(--verde-claro);
+    color: var(--verde-oscuro) !important;
+    padding: 10px;
+    border-radius: 7px;
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* =====================================
+   RESULTADOS
+===================================== */
+
+.resultado {
+    margin-top: 40px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    padding: 25px;
+    border-radius: 13px;
+}
+
+.resultado h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 18px;
+}
+
+.resultado-contenido {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: 15px;
+}
+
+.resultado-contenido p {
+    color: var(--gris);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =====================================
+   TARJETAS DE NOTIFICACIONES
+===================================== */
+
+.notificacion {
+    padding: 18px;
+    background: var(--verde-claro);
+    border-left: 4px solid var(--verde);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow-wrap: anywhere;
+}
+
+.notificacion h4 {
+    color: var(--verde-oscuro);
+    margin-bottom: 8px;
+}
+
+.notificacion p {
+    color: var(--texto);
+    font-size: 13px;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
+/* =====================================
+   HISTORIAL DE NOTIFICACIONES
+===================================== */
+
+#historialEventos {
+    margin-top: 15px;
+}
+
+#historialEventos .notificacion {
+    background: var(--crema);
+    border-left-color: var(--naranja);
+}
+
+#historialEventos:empty {
+    display: none;
+}
+
+/* =====================================
+   BOTÓN CONSULTAR EVENTOS
+===================================== */
+
+#btnConsultarEventos {
+    background: var(--naranja);
+    color: var(--verde-oscuro);
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+#btnConsultarEventos:hover {
+    background: #d99545;
+}
+
+#btnConsultarEventos:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =====================================
+   PIE DE PÁGINA
+===================================== */
+
+.footer {
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    text-align: center;
+    padding: 22px;
+    margin-top: 60px;
+    font-size: 13px;
+}
+
+/* =====================================
+   RESPONSIVE - TABLET
+===================================== */
+
+@media (max-width: 768px) {
+
+    .contenedor {
+        width: 92%;
+    }
+
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjetas,
+    .resultado-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-titulo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .presentacion h2 {
+        font-size: 30px;
+    }
+
+    #cantidadObservadores {
+        font-size: 26px;
+    }
+
+    #btnConsultarEventos {
+        width: 100%;
+    }
+}
+
+/* =====================================
+   RESPONSIVE - CELULARES
+===================================== */
+
+@media (max-width: 480px) {
+
+    .header {
+        padding: 15px 4%;
+    }
+
+    .logo h1 {
+        font-size: 16px;
+    }
+
+    .btn-volver {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .contenedor {
+        margin: 25px auto;
+    }
+
+    .panel,
+    .resultado {
+        padding: 18px;
+    }
+
+    .presentacion h2 {
+        font-size: 28px;
+    }
+
+    .tarjeta {
+        padding: 20px;
+    }
+}
