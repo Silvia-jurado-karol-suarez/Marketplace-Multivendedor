@@ -1,0 +1,465 @@
+
+/* =====================================
+   PATRÓN STRATEGY - MARKETPLACE
+===================================== */
+
+.strategy-box {
+    margin-top: 25px;
+    padding: 24px;
+    border: 1px solid #e4d9f5;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #faf7ff, #f1eaff);
+    box-shadow: 0 5px 18px rgba(91, 45, 145, 0.08);
+}
+
+.strategy-box .etiqueta {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #eadcff;
+    color: #7135ad;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.strategy-box h3 {
+    margin: 15px 0 8px;
+    color: #432064;
+}
+
+.strategy-box p {
+    color: #6d6179;
+    line-height: 1.6;
+}
+
+.strategy-box label {
+    display: block;
+    margin: 17px 0 7px;
+    color: #49305f;
+    font-weight: 600;
+}
+
+.strategy-box select,
+.strategy-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d8c7ed;
+    border-radius: 9px;
+    background: #fff;
+    color: #39234f;
+    font-size: 14px;
+    outline: none;
+}
+
+.strategy-box select:focus,
+.strategy-box input:focus {
+    border-color: #8549c7;
+    box-shadow: 0 0 0 3px rgba(133, 73, 199, 0.12);
+}
+
+.strategy-box button {
+    width: 100%;
+    margin-top: 18px;
+    background: linear-gradient(135deg, #7135ad, #985bd1);
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.strategy-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(113, 53, 173, 0.22);
+}
+
+.strategy-box .resultado {
+    margin-top: 18px;
+    color: #49305f;
+}
+
+.strategy-box .resultado h3 {
+    color: #7135ad;
+}
+
+.strategy-box .resultado p {
+    margin: 9px 0;
+}
+
+/* =====================================
+   PATRÓN STRATEGY - DISEÑO VISUAL
+===================================== */
+
+#strategy {
+    background: #ffffff;
+    border: 1px solid #e2eee5;
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 22px;
+    box-shadow: 0 8px 25px rgba(34, 91, 52, 0.07);
+    color: #263b2d;
+}
+
+#strategy .strategy-header {
+    margin-bottom: 25px;
+}
+
+#strategy .strategy-header h3 {
+    color: #23643a;
+    font-size: 23px;
+    margin: 12px 0 8px;
+}
+
+#strategy .strategy-header p {
+    color: #718078;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#strategy .etiqueta {
+    display: inline-block;
+    background: #e7f4e9;
+    color: #287543;
+    padding: 7px 12px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#strategy .strategy-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 15px;
+}
+
+#strategy .strategy-subtitle > span {
+    background: #287543;
+    color: white;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#strategy .strategy-subtitle strong,
+#strategy .strategy-subtitle small {
+    display: block;
+}
+
+#strategy .strategy-subtitle strong {
+    color: #294c34;
+    font-size: 15px;
+}
+
+#strategy .strategy-subtitle small {
+    color: #849087;
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+/* Tarjetas de selección */
+
+#strategy .strategy-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+#strategy .strategy-option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 15px 12px;
+    border: 1px solid #e1ebe3;
+    border-radius: 15px;
+    background: #fbfdfb;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#strategy .strategy-option:hover {
+    border-color: #55a66c;
+    background: #f1f8f2;
+    transform: translateY(-3px);
+}
+
+#strategy .strategy-option:has(input:checked) {
+    border: 2px solid #36834d;
+    background: #eff8f0;
+    box-shadow: 0 4px 13px rgba(40, 117, 67, 0.10);
+}
+
+#strategy .strategy-option input {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    accent-color: #287543;
+}
+
+#strategy .strategy-option-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e1f1e4;
+    color: #287543;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#strategy .strategy-option strong {
+    color: #315b3c;
+    font-size: 13px;
+}
+
+#strategy .strategy-option small {
+    color: #849087;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+#strategy .strategy-hidden-select {
+    display: none;
+}
+
+/* Campo de descuento */
+
+#strategy .strategy-input-area {
+    margin-top: 22px;
+    padding: 18px;
+    background: #f7faf7;
+    border: 1px solid #e8efe9;
+    border-radius: 15px;
+}
+
+#strategy .strategy-input-area label {
+    display: block;
+    color: #315b3c;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+#strategy #valorEstrategia {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d7e4d9;
+    border-radius: 10px;
+    background: white;
+    color: #294c34;
+    outline: none;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+#strategy #valorEstrategia:focus {
+    border-color: #36834d;
+    box-shadow: 0 0 0 3px rgba(54, 131, 77, 0.12);
+}
+
+#strategy .strategy-input-area > small {
+    display: block;
+    color: #849087;
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+#strategy .strategy-input-area button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 13px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #287543, #49a663);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#strategy .strategy-input-area button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 117, 67, 0.22);
+}
+
+/* Resultado */
+
+#strategy #resultadoStrategy {
+    margin-top: 18px;
+}
+
+#strategy #resultadoStrategy .resultado {
+    padding: 17px;
+    background: #f0f8f1;
+    border: 1px solid #dcecdf;
+    border-radius: 14px;
+}
+
+#strategy #resultadoStrategy h3 {
+    color: #287543;
+    margin-top: 0;
+}
+
+#strategy #resultadoStrategy p {
+    color: #52665a;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+#strategy .strategy-empty {
+    text-align: center;
+    padding: 22px 12px;
+    border: 1px dashed #cbdccb;
+    border-radius: 14px;
+    background: #fbfdfb;
+}
+
+#strategy .strategy-empty span {
+    display: block;
+    color: #36834d;
+    font-size: 28px;
+}
+
+#strategy .strategy-empty strong {
+    display: block;
+    color: #315b3c;
+    margin-top: 8px;
+}
+
+#strategy .strategy-empty p {
+    color: #849087;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Diagrama de clases */
+
+#strategy .strategy-architecture {
+    margin-top: 28px;
+    padding-top: 8px;
+    border-top: 1px solid #e8efe9;
+}
+
+#strategy .strategy-context,
+#strategy .strategy-interface {
+    text-align: center;
+    padding: 16px;
+    border-radius: 13px;
+}
+
+#strategy .strategy-context {
+    background: #eaf5ec;
+    border: 1px solid #cde5d1;
+}
+
+#strategy .strategy-context span {
+    display: block;
+    color: #438254;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+}
+
+#strategy .strategy-context strong,
+#strategy .strategy-interface strong {
+    display: block;
+    color: #28633b;
+    font-size: 14px;
+}
+
+#strategy .strategy-context small,
+#strategy .strategy-interface small {
+    display: block;
+    color: #718078;
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+#strategy .strategy-connector {
+    text-align: center;
+    color: #41945a;
+    font-size: 23px;
+    padding: 5px;
+}
+
+#strategy .strategy-interface {
+    background: #f4f8f4;
+    border: 1px solid #b9d8c0;
+}
+
+#strategy .strategy-implementations {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+#strategy .strategy-class {
+    text-align: center;
+    padding: 13px 8px;
+    border: 1px solid #dce9de;
+    border-radius: 12px;
+    background: white;
+}
+
+#strategy .strategy-class strong {
+    display: block;
+    color: #367749;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+#strategy .strategy-class small {
+    display: block;
+    color: #849087;
+    font-size: 10px;
+    margin-top: 7px;
+}
+
+#strategy .strategy-explanation {
+    margin-top: 18px;
+    padding: 16px;
+    border-left: 4px solid #42945a;
+    border-radius: 8px;
+    background: #f1f8f2;
+}
+
+#strategy .strategy-explanation strong {
+    color: #28633b;
+    font-size: 13px;
+}
+
+#strategy .strategy-explanation p {
+    color: #65766a;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Adaptación a celulares */
+
+@media (max-width: 600px) {
+    #strategy {
+        padding: 16px;
+    }
+
+    #strategy .strategy-options {
+        grid-template-columns: 1fr;
+    }
+
+    #strategy .strategy-option {
+        min-height: 85px;
+    }
+
+    #strategy .strategy-implementations {
+        grid-template-columns: 1fr;
+    }
+}

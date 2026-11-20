@@ -1,6 +1,6 @@
+
 package com.marketplace.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marketplace.composite.CategoriaCatalogo;
-import com.marketplace.composite.ElementoCatalogo;
 import com.marketplace.model.Producto;
 import com.marketplace.repository.ProductoRepository;
 
@@ -29,10 +28,8 @@ public class CompositeController {
     @GetMapping("/catalogo")
     public Map<String, Object> mostrarCatalogo() {
 
-      
         List<Producto> productos = productoRepository.findAll();
 
-        
         CategoriaCatalogo catalogo =
                 new CategoriaCatalogo("Catálogo");
 
@@ -44,22 +41,20 @@ public class CompositeController {
             String nombreCategoria = producto.getCategoria();
 
             if (nombreCategoria == null ||
-                nombreCategoria.trim().isEmpty()) {
+                    nombreCategoria.trim().isEmpty()) {
 
                 nombreCategoria = "Sin categoría";
             }
 
             CategoriaCatalogo categoria =
                     categorias.computeIfAbsent(
-                        nombreCategoria,
-                        CategoriaCatalogo::new
+                            nombreCategoria,
+                            CategoriaCatalogo::new
                     );
 
-       
             categoria.agregar(producto);
         }
 
-   
         for (CategoriaCatalogo categoria : categorias.values()) {
             catalogo.agregar(categoria);
         }
@@ -67,9 +62,8 @@ public class CompositeController {
         // Mostrar estructura Composite en consola
         catalogo.mostrar();
 
-        // Respuesta para la página
-        Map<String, Object> respuesta =
-                new HashMap<>();
+        // Preparar respuesta para la página web
+        Map<String, Object> respuesta = new HashMap<>();
 
         respuesta.put("nombre", catalogo.getNombre());
         respuesta.put("categorias", catalogo.getElementos());

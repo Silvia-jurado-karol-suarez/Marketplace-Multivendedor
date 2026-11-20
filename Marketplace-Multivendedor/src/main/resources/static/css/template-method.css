@@ -1,0 +1,111 @@
+
+/* Panel principal */
+#template-method .template-method-box {
+    background: #f4faf5;
+    border: 1px solid #d8e8da;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Selector */
+#template-method select {
+    background: #ffffff;
+    color: #244b30;
+    border: 1px solid #c9dfcd;
+    border-radius: 9px;
+}
+
+/* Botón */
+#template-method button {
+    background: linear-gradient(135deg, #287543, #55a66c);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#template-method button:hover {
+    background: #216239;
+}
+
+/* Resultado */
+#template-method #resultadoTemplateMethod {
+    margin-top: 15px;
+    padding: 15px;
+    background: #edf6ef;
+    border: 1px solid #d4e6d7;
+    border-radius: 12px;
+}
+
+/* Tarjeta de resultado */
+.template-result {
+    background: #f4faf5;
+    border: 1px solid #d5e8d8;
+    border-radius: 14px;
+    padding: 20px;
+    color: #244b30;
+}
+
+.template-result h3,
+.template-result h4 {
+    color: #287543;
+}
+
+/* Pasos */
+.template-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.template-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #d5e8d8;
+    border-radius: 12px;
+}
+
+.template-step-number {
+    min-width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background: linear-gradient(135deg, #287543, #55a66c);
+    font-weight: bold;
+}
+
+.template-step strong {
+    color: #287543;
+}
+
+.template-step p {
+    margin: 5px 0 0;
+    color: #536b59;
+    line-height: 1.5;
+}
+
+/* Explicación */
+.template-explanation {
+    margin-top: 20px;
+    padding: 16px;
+    background: #e7f3e9;
+    border: 1px solid #c9e2ce;
+    border-radius: 12px;
+}
+
+.template-explanation strong {
+    color: #287543;
+}
+
+.template-explanation p {
+    color: #405d48;
+    line-height: 1.6;
+}
